@@ -60,14 +60,9 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th style="width: 70px;" class="text-center">STT</th>
-                                                <th>Mã</th>
-                                                <th>Ảnh đại diện</th>
                                                 <th>Họ và tên</th>
+                                                <th>Đơn vị BĐKT</th>
                                                 <th>Vai trò</th>
-                                                <th>Giới tính</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Ngày sinh</th>
-                                                <th>Địa chỉ</th>
                                                 <th class="text-center">Hành động</th>
                                             </tr>
                                         </thead>
@@ -76,30 +71,15 @@
                                             @foreach ($users as $user)
                                                 <tr>
                                                     <td class="text-center">{{ $stt++ }}</td>
-                                                    <td>{{ $user->code }}</td>
-                                                    <td>
-                                                        @if ($user->avatar)
-                                                            <div>
-                                                                <img class="rounded-circle avatar-xs" src="{{ asset($user->avatar) }}" alt="">
-                                                            </div>
-                                                        @else
-                                                            <div class="avatar-xs">
-                                                                <span class="avatar-title rounded-circle text-uppercase">
-                                                                    {{ substr($user->name, 0, 1) }}
-                                                                </span>
-                                                            </div>
-                                                        @endif
-                                                    </td>
                                                     <td>{{ $user->name }}</td>
+                                                    <td>
+                                                        {{ $user->unit ? $user->unit->name : '' }}
+                                                    </td>
                                                     <td>
                                                         @foreach ($user->roles as $role)
                                                             <span class="badge badge-dark text-white">{{ $role->name }}</span>
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $user->gender }}</td>
-                                                    <td>{{ $user->phone }}</td>
-                                                    <td>{{ date("d-m-Y", strtotime($user->birthday)) }}</td>
-                                                    <td>{{ $user->address }}</td>
                                                     <td class="text-center">
                                                         @if ($user->id != 1)
                                                         <ul class="list-inline font-size-20 contact-links mb-0">

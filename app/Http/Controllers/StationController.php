@@ -81,7 +81,7 @@ class StationController extends Controller
      */
     public function show(Station $station)
     {
-        //
+        
     }
 
     /**
@@ -152,5 +152,108 @@ class StationController extends Controller
             DB::rollback();
             return redirect()->back()->with('alert-error','Xóa trạm thất bại!');
         }
+    }
+
+    public function systemTree()
+    {
+        if (auth()->user()->hasRole('Admin')) {
+            $data = Unit::where('parent_id', null)->first();
+            $dataList = [
+                'id' => $data->id,
+                'parent_id' => $data->parent_id,
+                'name' => $data->name,
+                'childs' => [],
+            ];
+            $parents = Unit::where('parent_id', $dataList['id'])->get();
+            if(!empty($parents)){
+                foreach($parents as $keyParent => $parent){
+                    array_push($dataList['childs'],[
+                        'id' => $parent->id,
+                        'parent_id' => $parent->parent_id,
+                        'name' => $parent->name,
+                        'childs' => [],
+                    ]);
+                    $parent_lv3 = Unit::where('parent_id', $parent['id'])->get();
+                    if(!empty($parent_lv3)){
+                        foreach($parent_lv3 as $lv3) {
+                            $count_child = \DB::table('units as unit')
+                            ->where('unit.parent_id', $lv3['id'])
+                            ->count ();
+                            array_push($dataList['childs'][$keyParent]['childs'],[
+                                'id' => $lv3->id,
+                                'parent_id' => $lv3->parent_id,
+                                'name' => $lv3->name,
+                                'count_child' => $count_child,
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            $unitParent = Unit::find(auth()->user()->unit->parent_id);
+            $unit = Unit::find(auth()->user()->unit_id);
+
+            if(!empty($unitParent)){
+                $dataList = [
+                    'id' => $unitParent->id,
+                    'parent_id' => $unitParent->parent_id,
+                    'name' => $unitParent->name,
+                    'childs' => [
+                        [
+                            'id' => $unit->id,
+                            'parent_id' => $unit->parent_id,
+                            'name' => $unit->name,
+                            'childs' => [],
+                        ]
+                    ]
+                ];
+                $parent_lv3 = Unit::where('parent_id', $unit['id'])->get();
+                if(!empty($parent_lv3)){
+                    foreach($parent_lv3 as $lv3) {
+                        $count_child = \DB::table('units as unit')
+                        ->where('unit.parent_id', $lv3['id'])
+                        ->count();
+
+                        array_push($dataList['childs'][0]['childs'],[
+                            'id' => $lv3->id,
+                            'parent_id' => $lv3->parent_id,
+                            'name' => $lv3->name,
+                            'count_child' => $count_child,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        $data = [
+            'dataList' => $dataList,
+        ];
+
+        return view('station.system-tree', $data);
+    }
+
+    public function getUnitChildList(Request $request){
+        $parents = Unit::where('parent_id', $request->id)->get();
+        $dataList = [];
+        if(!empty($parents)){
+            foreach($parents as $parent) {
+                $count_child = \DB::table('units as unit')
+                ->where('unit.parent_id', $parent['id'])
+                ->count();
+                array_push($dataList,[
+                    'id' => $parent->id,
+                    'parent_id' => $parent->parent_id,
+                    'name' => $parent->name,
+                    'count_child' => $count_child,
+                ]);
+            }
+        }
+
+        return \response()->json([
+            'status'=> 1,
+            'data_unit' => $dataList,
+            'data_station' => Station::where('unit_id', $request->id)->get(),
+        ]);
     }
 }

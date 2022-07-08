@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -44,9 +45,11 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $units = Unit::all();
         
         $data = [
-            'roles' => $roles
+            'roles' => $roles,
+            'units' => $units
         ];
 
         return view('user.create', $data);
@@ -63,33 +66,17 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            $file_path = '';
-            if ($request->file('avatar')) {
-                $name = time().'_'.$request->avatar->getClientOriginalName();
-                $file_path = 'uploads/avatar/user/'.$name;
-                Storage::disk('public_uploads')->putFileAs('avatar/user', $request->avatar, $name);
-            }
-            
             $create = User::create([
-                'code' => '',
+                'unit_id' => $request->unit_id,
                 'name' => $request->name,
                 'password' => bcrypt($request->password),
                 'email' => $request->email,
-                'gender' => $request->gender,
-                'birthday' => date("Y-m-d", strtotime($request->birthday)),
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'avatar' => $file_path,
             ]);
 
             foreach ($request->roles as $role_id) {
                 $role = Role::find($role_id)->name;
                 $create->assignRole($role);
             }
-
-            $create->update([
-                'code' => 'TK'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
-            ]);
             
             DB::commit();
             return redirect()->route('users.index')->with('alert-success','Thêm tài khoản thành công!');
@@ -126,10 +113,12 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $units = Unit::all();
         
         $data = [
             'data_edit' => $user,
-            'roles' => $roles
+            'roles' => $roles,
+            'units' => $units
         ];
 
         return view('user.edit', $data);
@@ -147,31 +136,11 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            if ($request->file('avatar')) {
-                $name = time().'_'.$request->avatar->getClientOriginalName();
-                $file_path = 'uploads/avatar/user/'.$name;
-                Storage::disk('public_uploads')->putFileAs('avatar/user', $request->avatar, $name);
-                
-                $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'gender' => $request->gender,
-                    'birthday' => date("Y-m-d", strtotime($request->birthday)),
-                    'phone' => $request->phone,
-                    'address' => $request->address,
-                    'avatar' => $file_path,
-                ]);
-            }
-            else {
-                $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'gender' => $request->gender,
-                    'birthday' => date("Y-m-d", strtotime($request->birthday)),
-                    'phone' => $request->phone,
-                    'address' => $request->address,
-                ]);
-            }
+            $user->update([
+                'unit_id' => $request->unit_id,
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
         
             $user->roles()->detach();
 

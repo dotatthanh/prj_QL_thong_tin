@@ -30,11 +30,8 @@ class UpdateUserRequest extends FormRequest
                 'required', 'string', 'email', 'max:255',
                 Rule::unique('users')->ignore($this->user),
             ],
-            'gender' => 'required',
-            'birthday' => 'required|date',
-            'phone' => 'required|size:10',
-            'address' => 'required',
             'roles' => 'required',
+            'unit_id' => 'required',
         ];
     }
 
@@ -43,18 +40,13 @@ class UpdateUserRequest extends FormRequest
         return [
             'name.required' => 'Họ và tên là trường bắt buộc.', 
             'name.max' => 'Họ và tên không được dài quá :max ký tự.', 
-            'gender.required' => 'Giới tính là trường bắt buộc.',
-            'birthday.required' => 'Ngày sinh là trường bắt buộc.',
-            'birthday.date' => 'Ngày sinh không đúng định dạng.',
-            'phone.required' => 'Số điện thoại là trường bắt buộc.',
-            'phone.size' => 'Số điện thoại phải là :size số.',
-            'address.required' => 'Địa chỉ là trường bắt buộc.',
             'email.required' => 'Email là trường bắt buộc.',
             'email.email' => 'Email chưa đúng định dạng.',
             'email.unique' => 'Email đã tồn tại.',
             'email.string' => 'Email phải là một chuỗi.',
             'email.max' => 'Email không được dài quá :max ký tự.',
             'roles.required' => 'Vai trò là trường bắt buộc.', 
+            'unit_id.required' => 'Đơn vị BĐKT là trường bắt buộc.', 
         ];
     }
 }

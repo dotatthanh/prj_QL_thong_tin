@@ -16,12 +16,13 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
-        $units = Unit::paginate(10);
+        $units = Unit::getTreeUnit([auth()->user()->unit_id]);
 
         if ($request->search) {
-            $units = Unit::where('name', 'like', '%'.$request->search.'%')->paginate(10);
-            $units->appends(['search' => $request->search]);
+            $units = $units->where('name', 'like', '%'.$request->search.'%');
         }
+
+        $units = $units->paginate(10)->appends(['search' => $request->search]);
 
         $data = [
             'units' => $units
@@ -37,7 +38,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        $units = Unit::all();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->paginate(10);
 
         $data = [
             'units' => $units,
@@ -89,7 +90,7 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        $units = Unit::where('id', '!=', $unit->id)->get();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->where('id', '!=', $unit->id)->paginate(10);
 
         $data = [
             'data_edit' => $unit,

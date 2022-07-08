@@ -19,15 +19,10 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'unit_id',
         'name',
-        'code',
         'email',
         'password',
-        'birthday',
-        'gender',
-        'address',
-        'avatar',
-        'phone',
     ];
 
     /**
@@ -62,5 +57,10 @@ class User extends Authenticatable
     public function serviceVouchers()
     {
         return $this->hasMany(ServiceVoucher::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 }

@@ -59,7 +59,11 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('roles', RoleController::class);
 	Route::resource('permissions', PermissionController::class);
 	Route::resource('units', UnitController::class);
+
 	Route::resource('stations', StationController::class);
+	Route::get('/station/system-tree', [StationController::class, 'systemTree'])->name('station.system-tree');
+	Route::post('/station/get-unit-child-list', [StationController::class, 'getUnitChildList']);
+
 	Route::resource('devices', DeviceController::class);
 	Route::resource('softwares', SoftwareController::class);
 	Route::resource('documents', DocumentController::class);

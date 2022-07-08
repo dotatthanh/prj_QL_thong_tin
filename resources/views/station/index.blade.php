@@ -51,6 +51,10 @@
                                             </div>
                                         </div><!-- end col-->
                                         {{-- @endcan --}}
+
+                                        <div class="col-sm-12">
+                                            <a href="{{ route('station.system-tree') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-chart-tree"></i> Cây hệ thống</a>
+                                        </div>
                                     </div>
                                 </form>
 
