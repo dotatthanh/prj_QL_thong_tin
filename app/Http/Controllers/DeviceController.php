@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use Illuminate\Http\Request;
+use App\Models\Unit;
 use App\Models\Station;
 use App\Http\Requests\StoreDeviceRequest;
 use DB;
@@ -17,12 +18,15 @@ class DeviceController extends Controller
      */
     public function index(Request $request)
     {
-        $devices = Device::paginate(10);
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
+        $devices = Device::whereIn('station_id', $stations);
 
         if ($request->search) {
-            $devices = Device::where('name', 'like', '%'.$request->search.'%')->paginate(10);
-            $devices->appends(['search' => $request->search]);
+            $devices = $devices->where('name', 'like', '%'.$request->search.'%');
         }
+
+        $devices = $devices->paginate(10)->appends(['search' => $request->search]);
 
         $data = [
             'devices' => $devices
@@ -38,7 +42,8 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        $stations = Station::all();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->get();
 
         $data = [
             'stations' => $stations,
@@ -90,7 +95,8 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        $stations = Station::all();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->get();
 
         $data = [
             'data_edit' => $device,

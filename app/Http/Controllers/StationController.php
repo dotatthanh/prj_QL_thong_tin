@@ -17,12 +17,13 @@ class StationController extends Controller
      */
     public function index(Request $request)
     {
-        $stations = Station::paginate(10);
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units);
 
         if ($request->search) {
-            $stations = Station::where('name', 'like', '%'.$request->search.'%')->paginate(10);
-            $stations->appends(['search' => $request->search]);
+            $stations = $stations->where('name', 'like', '%'.$request->search.'%');
         }
+        $stations = $stations->paginate(10)->appends(['search' => $request->search]);
 
         $data = [
             'stations' => $stations
@@ -38,7 +39,7 @@ class StationController extends Controller
      */
     public function create()
     {
-        $units = Unit::all();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->get();
 
         $data = [
             'units' => $units,
@@ -92,7 +93,7 @@ class StationController extends Controller
      */
     public function edit(Station $station)
     {
-        $units = Unit::all();
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->get();
 
         $data = [
             'data_edit' => $station,

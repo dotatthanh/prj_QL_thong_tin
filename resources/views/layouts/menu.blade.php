@@ -15,43 +15,43 @@
                     </a>
                 </li>
 
-                {{-- @can('Xem danh sách đơn vị BĐKT') --}}
+                @can('Xem danh sách đơn vị BĐKT')
                     <li>
                         <a href="{{ route('units.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Đơn vị BĐKT</span>
                         </a>
                     </li>
-                {{-- @endcan --}}
+                @endcan
 
-                {{-- @can('Xem danh sách trạm') --}}
+                @can('Xem danh sách trạm')
                     <li>
                         <a href="{{ route('stations.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Trạm</span>
                         </a>
                     </li>
-                {{-- @endcan --}}
+                @endcan
 
-                {{-- @can('Xem danh sách thiết bị') --}}
+                @can('Xem danh sách thiết bị')
                     <li>
                         <a href="{{ route('devices.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Thiết bị</span>
                         </a>
                     </li>
-                {{-- @endcan --}}
+                @endcan
 
-                {{-- @can('Xem danh sách phần mềm hỗ trợ') --}}
+                @can('Xem danh sách phần mềm hỗ trợ')
                     <li>
                         <a href="{{ route('softwares.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Phần mềm hỗ trợ</span>
                         </a>
                     </li>
-                {{-- @endcan --}}
+                @endcan
 
-                {{-- @can('Xem danh sách tài liệu') --}}
+                @can('Xem danh sách tài liệu')
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class="bx bx-cog"></i><span class="badge badge-pill badge-info float-right">03</span>
@@ -63,7 +63,7 @@
                         <li><a href="{{ route('document.english') }}">Tiếng anh chuyên ngành</a></li>
                     </ul>
                 </li>
-                {{-- @endcan --}}
+                @endcan
 
                 
 
