@@ -168,23 +168,29 @@ class StationController extends Controller
             $parents = Unit::where('parent_id', $dataList['id'])->get();
             if(!empty($parents)){
                 foreach($parents as $keyParent => $parent){
+                    $stations = Station::where('unit_id', $parent->id)->get();
                     array_push($dataList['childs'],[
                         'id' => $parent->id,
                         'parent_id' => $parent->parent_id,
                         'name' => $parent->name,
+                        'count_child' => $parents->count() + $stations->count(),
                         'childs' => [],
+                        'station_childs' => $stations->toArray(),
                     ]);
                     $parent_lv3 = Unit::where('parent_id', $parent['id'])->get();
                     if(!empty($parent_lv3)){
                         foreach($parent_lv3 as $lv3) {
                             $count_child = \DB::table('units as unit')
                             ->where('unit.parent_id', $lv3['id'])
-                            ->count ();
+                            ->count();
+
+                            $count_station = Station::where('unit_id', $lv3['id'])->count();
+
                             array_push($dataList['childs'][$keyParent]['childs'],[
                                 'id' => $lv3->id,
                                 'parent_id' => $lv3->parent_id,
                                 'name' => $lv3->name,
-                                'count_child' => $count_child,
+                                'count_child' => $count_child + $count_station,
                             ]);
                         }
                     }
@@ -194,6 +200,7 @@ class StationController extends Controller
         else {
             $unitParent = Unit::find(auth()->user()->unit->parent_id);
             $unit = Unit::find(auth()->user()->unit_id);
+            $stations = Station::where('unit_id', $unit->id)->get();
 
             if(!empty($unitParent)){
                 $dataList = [
@@ -205,7 +212,9 @@ class StationController extends Controller
                             'id' => $unit->id,
                             'parent_id' => $unit->parent_id,
                             'name' => $unit->name,
+                            'count_child' => 1 + $stations->count(),
                             'childs' => [],
+                            'station_childs' => $stations->toArray(),
                         ]
                     ]
                 ];
@@ -216,11 +225,13 @@ class StationController extends Controller
                         ->where('unit.parent_id', $lv3['id'])
                         ->count();
 
+                        $count_station = Station::where('unit_id', $lv3['id'])->count();
+
                         array_push($dataList['childs'][0]['childs'],[
                             'id' => $lv3->id,
                             'parent_id' => $lv3->parent_id,
                             'name' => $lv3->name,
-                            'count_child' => $count_child,
+                            'count_child' => $count_child + $count_station,
                         ]);
                     }
                 }

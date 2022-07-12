@@ -12,6 +12,7 @@ class Device extends Model
     protected $fillable = [
     	'station_id',
     	'name',
+    	'type',
     ];
 
     public function station()

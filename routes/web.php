@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/station/get-unit-child-list', [StationController::class, 'getUnitChildList']);
 
 	Route::resource('devices', DeviceController::class);
+	Route::get('/device/transmission', [DeviceController::class, 'transmission'])->name('device.transmission');
+	Route::get('/device/television', [DeviceController::class, 'television'])->name('device.television');
 	Route::resource('softwares', SoftwareController::class);
 	Route::resource('documents', DocumentController::class);
 	Route::get('/document/document-video', [DocumentController::class, 'documentVideo'])->name('document.video');

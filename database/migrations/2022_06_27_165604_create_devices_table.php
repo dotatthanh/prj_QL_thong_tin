@@ -17,6 +17,7 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->integer('station_id');
             $table->string('name');
+            $table->integer('type');
             $table->timestamps();
         });
     }

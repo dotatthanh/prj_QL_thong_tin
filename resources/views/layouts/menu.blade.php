@@ -34,12 +34,16 @@
                 @endcan
 
                 @can('Xem danh sách thiết bị')
-                    <li>
-                        <a href="{{ route('devices.index') }}" class=" waves-effect">
-                            <i class="bx bx-calendar"></i>
-                            <span>Thiết bị</span>
-                        </a>
-                    </li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="bx bx-cog"></i><span class="badge badge-pill badge-info float-right">02</span>
+                        <span>Thiết bị</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('device.transmission') }}">Truyền dẫn</a></li>
+                        <li><a href="{{ route('device.television') }}">Truyền hình truyền số liệu</a></li>
+                    </ul>
+                </li>
                 @endcan
 
                 @can('Xem danh sách phần mềm hỗ trợ')

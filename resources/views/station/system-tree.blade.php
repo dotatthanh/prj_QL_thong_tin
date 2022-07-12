@@ -32,24 +32,33 @@
                             <div class="card-body">
 
                                 @if (!empty($dataList))
-                                    <p class="parent">Đơn vị: {{ !empty($dataList['name']) ? $dataList['name']: '' }}</p>
+                                    <p class="parent">{{ !empty($dataList['name']) ? $dataList['name']: '' }}</p>
                                     <ul class="wtree">
                                         @foreach ($dataList['childs'] as $lv2)
                                             <li>
-                                                <span>Đơn vị: {{ !empty($lv2['name']) ? $lv2['name']: '' }}</span>
+                                                <span>{{ !empty($lv2['name']) ? $lv2['name']: '' }}</span>
 
-                                                @if (count($lv2['childs']) > 0)
+                                                {{-- @if (count($lv2['childs']) > 0) --}}
+                                                @if ($lv2['count_child'] > 0)
                                                     <ul>
-                                                         @foreach ($lv2['childs'] as $lv3)
-                                                            <li id="li-{{ $lv3['id'] }}" class="close-el">
+                                                        @foreach ($lv2['childs'] as $lv3)
+                                                            <li id="li-unit-{{ $lv3['id'] }}" class="close-el">
                                                                 <span>
                                                                     @if ($lv3['count_child'] > 0)
                                                                         <i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="{{ $lv3['id'] }}" onclick="extendLevel({{ $lv3['id'] }})" id="i-{{ $lv3['id'] }}"></i>
                                                                     @endif
-                                                                    Đơn vị: {{ !empty($lv3['name']) ? $lv3['name']: '' }}
+                                                                    {{ !empty($lv3['name']) ? $lv3['name']: '' }}
                                                                 </span>
                                                             </li>
-                                                         @endforeach
+                                                        @endforeach
+
+                                                        @foreach ($lv2['station_childs'] as $lv3_station)
+                                                            <li id="li-{{ $lv3_station['id'] }}" class="close-el">
+                                                                <span>
+                                                                    {{ !empty($lv3_station['name']) ? $lv3_station['name']: '' }}
+                                                                </span>
+                                                            </li>
+                                                        @endforeach
                                                     </ul>
                                                 @endif
                                             </li>
@@ -94,7 +103,8 @@
         });
 
         function extendLevel(parentId) {
-            var li = $("#li-" + parentId);
+            var li = $("#li-unit-" + parentId);
+            console.log(li);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,8 +128,8 @@
                                 if (value.count_child > 0) {
                                     button_extend = `<i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="`+ value.id +`" onclick="extendLevel(`+ value.id +`)" id="i-`+ value.id +`"></i>`;
                                 }
-                                html += `<li id="li-`+ value.id +`" class="close-el">
-                                    <span>`+ button_extend + ` Đơn vị: ` + value.name + ` </span>
+                                html += `<li id="li-unit-`+ value.id +`" class="close-el">
+                                    <span>`+ button_extend + ` ` + value.name + ` </span>
                                     </li>`;
                             });
 
@@ -137,7 +147,7 @@
             } else {
                 $("#i-" + parentId).addClass('fa-plus-circle').removeClass('fa-minus-circle');
                 $(li).addClass("close-el").removeClass("open-el");
-                $("#li-" + parentId + " ul").remove();
+                $("#li-unit-" + parentId + " ul").remove();
             }
         }
     </script>
@@ -161,7 +171,7 @@
             color: #4c4848 !important;
         }
         ul {
-            margin-left: 20px;
+            padding-left: 20px;
         }
         .parent {
             display: block;
@@ -203,23 +213,10 @@
         }
         .wtree li span {
             display: block;
-            /* border: 1px solid #4c4848; */
-            /* padding: 10px; */
             color: #4c4848;
             text-decoration: none;
             width: 250px;
             padding-left: 10px;
-        }
-
-        .wtree li span:hover, .wtree li span:focus {
-            /* background: #eee; */
-            /* color: #000; */
-            /* border: 1px solid #4c4848; */
-        }
-        .wtree li span:hover + ul li span, .wtree li span:focus + ul li span {
-            /* background: #eee; */
-            /* color: #000; */
-            /* border: 1px solid #4c4848; */
         }
         .wtree li span:hover + ul li:after, .wtree li span:hover + ul li:before, .wtree li span:focus + ul li:after, .wtree li span:focus + ul li:before {
             border-color: #4c4848;

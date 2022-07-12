@@ -1,4 +1,5 @@
 @csrf
+<input name="type" type="text" value="{{ $type }}" hidden="">
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">

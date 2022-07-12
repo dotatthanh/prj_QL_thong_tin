@@ -35,18 +35,59 @@ class DeviceController extends Controller
         return view('device.index', $data);
     }
 
+    public function transmission(Request $request)
+    {
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
+        $devices = Device::whereIn('station_id', $stations)->where('type', 1);
+
+        if ($request->search) {
+            $devices = $devices->where('name', 'like', '%'.$request->search.'%');
+        }
+
+        $devices = $devices->paginate(10)->appends(['search' => $request->search]);
+
+        $data = [
+            'devices' => $devices,
+            'type' => 1,
+        ];
+
+        return view('device.index', $data);
+    }
+
+    public function television(Request $request)
+    {
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
+        $devices = Device::whereIn('station_id', $stations)->where('type', 2);
+
+        if ($request->search) {
+            $devices = $devices->where('name', 'like', '%'.$request->search.'%');
+        }
+
+        $devices = $devices->paginate(10)->appends(['search' => $request->search]);
+
+        $data = [
+            'devices' => $devices,
+            'type' => 2,
+        ];
+
+        return view('device.index', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
         $stations = Station::whereIn('unit_id', $units)->get();
 
         $data = [
             'stations' => $stations,
+            'type' => $request->type,
         ];
 
         return view('device.create', $data);
@@ -66,10 +107,13 @@ class DeviceController extends Controller
             $create = Device::create([
                 'name' => $request->name,
                 'station_id' => $request->station_id,
+                'type' => $request->type,
             ]);
             
             DB::commit();
-            return redirect()->route('devices.index')->with('alert-success','Thêm thiết bị thành công!');
+            if ($request->type == 1)
+                return redirect()->route('device.transmission')->with('alert-success','Thêm thiết bị thành công!');
+            return redirect()->route('device.television')->with('alert-success','Thêm thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Thêm thiết bị thất bại!');
@@ -93,7 +137,7 @@ class DeviceController extends Controller
      * @param  \App\Models\Device  $device
      * @return \Illuminate\Http\Response
      */
-    public function edit(Device $device)
+    public function edit(Device $device, Request $request)
     {
         $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
         $stations = Station::whereIn('unit_id', $units)->get();
@@ -101,6 +145,7 @@ class DeviceController extends Controller
         $data = [
             'data_edit' => $device,
             'stations' => $stations,
+            'type' => $request->type,
         ];
 
         return view('device.edit', $data);
@@ -124,7 +169,9 @@ class DeviceController extends Controller
             ]);
             
             DB::commit();
-            return redirect()->route('devices.index')->with('alert-success','Sửa thiết bị thành công!');
+            if ($request->type == 1)
+                return redirect()->route('device.transmission')->with('alert-success','Thêm thiết bị thành công!');
+            return redirect()->route('device.television')->with('alert-success','Thêm thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Sửa thiết bị thất bại!');
