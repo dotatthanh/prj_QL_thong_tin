@@ -113,7 +113,7 @@
                                 </div>
 
                                 <div class="row mt-3">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         @if (!empty($dataList))
                                             <p class="parent">{{ !empty($dataList['name']) ? $dataList['name']: '' }}</p>
                                             <ul class="wtree">
@@ -150,7 +150,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-centered table-nowrap">
                                                 <thead class="thead-light">
