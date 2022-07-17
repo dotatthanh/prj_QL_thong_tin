@@ -27,7 +27,7 @@ class TransmissionStreamController extends Controller
             if (isset($request->device_id)) {
                 $transmission_streams = $transmission_streams->where('device_id', $request->device_id);
             }
-            $transmission_streams = $transmission_streams->paginate(1)->appends([
+            $transmission_streams = $transmission_streams->paginate(50)->appends([
                 'search' => $request->search,
                 'device_id' => $request->device_id,
             ]);
