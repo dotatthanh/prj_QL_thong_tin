@@ -198,4 +198,24 @@ class DeviceController extends Controller
             return redirect()->back()->with('alert-error','Xóa thiết bị thất bại!');
         }
     }
+
+    public function getDeviceTransmissionByStation(Request $request)
+    {
+        $devices = Device::where('station_id', $request->id)->where('type', 1)->get();
+
+        return \response()->json([
+            'devices' => $devices,
+            'count' => $devices->count(),
+        ]);
+    }
+
+    public function getDeviceTelevisionByStation(Request $request)
+    {
+        $devices = Device::where('station_id', $request->id)->where('type', 2)->get();
+
+        return \response()->json([
+            'devices' => $devices,
+            'count' => $devices->count(),
+        ]);
+    }
 }

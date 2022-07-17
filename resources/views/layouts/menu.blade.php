@@ -46,6 +46,15 @@
                 </li>
                 @endcan
 
+                {{-- @can('Xem danh sách trạm') --}}
+                    <li>
+                        <a href="{{ route('transmission_streams.index') }}" class=" waves-effect">
+                            <i class="bx bx-calendar"></i>
+                            <span>Luồng truyền dẫn</span>
+                        </a>
+                    </li>
+                {{-- @endcan --}}
+
                 @can('Xem danh sách phần mềm hỗ trợ')
                     <li>
                         <a href="{{ route('softwares.index') }}" class=" waves-effect">

@@ -27,6 +27,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SoftwareController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\TransmissionStreamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('roles', RoleController::class);
 	Route::resource('permissions', PermissionController::class);
 	Route::resource('units', UnitController::class);
+	Route::resource('transmission_streams', TransmissionStreamController::class);
 
 	Route::resource('stations', StationController::class);
 	Route::get('/station/system-tree', [StationController::class, 'systemTree'])->name('station.system-tree');
@@ -67,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('devices', DeviceController::class);
 	Route::get('/device/transmission', [DeviceController::class, 'transmission'])->name('device.transmission');
 	Route::get('/device/television', [DeviceController::class, 'television'])->name('device.television');
+	Route::post('/device/get-device-transmission-by-station', [DeviceController::class, 'getDeviceTransmissionByStation'])->name('device.get-device-transmission-by-station');
+	Route::post('/device/get-device-television-by-station', [DeviceController::class, 'getDeviceTelevisionByStation'])->name('device.get-device-television-by-station');
 	Route::resource('softwares', SoftwareController::class);
 	Route::resource('documents', DocumentController::class);
 	Route::get('/document/document-video', [DocumentController::class, 'documentVideo'])->name('document.video');
