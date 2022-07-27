@@ -75,7 +75,7 @@
                                             @foreach ($stations as $station)
                                                 <tr>
                                                     <td class="text-center">{{ $stt++ }}</td>
-                                                    <td>{{ $station->name }}</td>
+                                                    <td><a href="{{ route('stations.show', $station->id) }}">{{ $station->name }}</a></td>
                                                     <td>{{ $station->phone_number }}</td>
                                                     <td>{{ $station->address }}</td>
                                                     <td>{{ $station->unit->name }}</td>

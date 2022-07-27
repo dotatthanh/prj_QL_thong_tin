@@ -72,8 +72,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/station/get-unit-child-list', [StationController::class, 'getUnitChildList']);
 
 	Route::resource('devices', DeviceController::class);
-	Route::get('/device/transmission', [DeviceController::class, 'transmission'])->name('device.transmission');
-	Route::get('/device/television', [DeviceController::class, 'television'])->name('device.television');
+	Route::get('/device/transmission/{id}', [DeviceController::class, 'transmission'])->name('device.transmission');
+	Route::get('/device/television/{id}', [DeviceController::class, 'television'])->name('device.television');
 	Route::post('/device/get-device-transmission-by-station', [DeviceController::class, 'getDeviceTransmissionByStation'])->name('device.get-device-transmission-by-station');
 	Route::post('/device/get-device-television-by-station', [DeviceController::class, 'getDeviceTelevisionByStation'])->name('device.get-device-television-by-station');
 	Route::resource('softwares', SoftwareController::class);

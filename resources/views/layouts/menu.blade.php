@@ -33,7 +33,7 @@
                     </li>
                 @endcan
 
-                @can('Xem danh sách thiết bị')
+                {{-- @can('Xem danh sách thiết bị')
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class="bx bx-cog"></i><span class="badge badge-pill badge-info float-right">02</span>
@@ -44,7 +44,7 @@
                         <li><a href="{{ route('device.television') }}">Truyền hình truyền số liệu</a></li>
                     </ul>
                 </li>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('Xem danh sách luồng truyền dẫn') --}}
                     <li>

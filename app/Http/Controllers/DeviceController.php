@@ -35,11 +35,11 @@ class DeviceController extends Controller
         return view('device.index', $data);
     }
 
-    public function transmission(Request $request)
+    public function transmission($id, Request $request)
     {
-        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
-        $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
-        $devices = Device::whereIn('station_id', $stations)->where('type', 1);
+        // $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        // $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
+        $devices = Device::where('station_id', $id)->where('type', 1);
 
         if ($request->search) {
             $devices = $devices->where('name', 'like', '%'.$request->search.'%');
@@ -50,16 +50,17 @@ class DeviceController extends Controller
         $data = [
             'devices' => $devices,
             'type' => 1,
+            'id' => $id,
         ];
 
         return view('device.index', $data);
     }
 
-    public function television(Request $request)
+    public function television($id, Request $request)
     {
-        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
-        $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
-        $devices = Device::whereIn('station_id', $stations)->where('type', 2);
+        // $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        // $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
+        $devices = Device::where('station_id', $id)->where('type', 2);
 
         if ($request->search) {
             $devices = $devices->where('name', 'like', '%'.$request->search.'%');
@@ -70,6 +71,7 @@ class DeviceController extends Controller
         $data = [
             'devices' => $devices,
             'type' => 2,
+            'id' => $id,
         ];
 
         return view('device.index', $data);
