@@ -16,7 +16,7 @@
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('tv_streams.index') }}" title="Quản lý luồng truyền dẫn" data-toggle="tooltip" data-placement="top">Quản lý luồng truyền dẫn</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('tv_streams.index') }}" title="Quản lý luồng TH-TDL" data-toggle="tooltip" data-placement="top">Quản lý luồng TH-TDL</a></li>
                                     <li class="breadcrumb-item active">Cập nhật card thiết bị</li>
                                 </ol>
                             </div>
@@ -34,9 +34,9 @@
                                 <h4 class="card-title">Thông tin cơ bản</h4>
                                 <p class="card-title-desc">Điền tất cả thông tin bên dưới</p>
 
-                                <form method="POST" action="{{ route('transmission_streams.update', $data_edit->id) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('tv_streams.update', $data_edit->id) }}" enctype="multipart/form-data">
                                     @method('PUT')
-                                    @include('transmission-stream._form')
+                                    @include('tv-stream._form')
                                     
                                 </form>
 

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý luồng truyền dẫn @endsection
+@section('title') Quản lý luồng TH-TDL @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách luồng truyền dẫn</h4>
+                            <h4 class="mb-0 font-size-18">Danh sách luồng TH-TDL</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách luồng truyền dẫn</li>
+                                    <li class="breadcrumb-item active">Danh sách luồng TH-TDL</li>
                                 </ol>
                             </div>
 
@@ -30,7 +30,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form method="GET" action="{{ route('transmission_streams.index') }}">
+                                <form method="GET" action="{{ route('tv_streams.index') }}">
                                     <div class="row mb-2">
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
@@ -68,7 +68,7 @@
                                                 </button>
                                             </div>
 
-                                            <form method="GET" action="{{ route('transmission_streams.create') }}">
+                                            <form method="GET" action="{{ route('tv_streams.create') }}">
                                                 <div class="modal-body">
                                                     @if (isset($request->device_id))
                                                         <input hidden type="text" name="device_id" value="{{ $request->device_id }}">
@@ -105,7 +105,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="text-white btn btn-success waves-effect waves-light mb-2 mr-2">Thêm</button>
-                                                    {{-- <a href="{{ route('transmission_streams.create') }}" class="text-white btn btn-success waves-effect waves-light mb-2 mr-2">Thêm</a> --}}
+                                                    {{-- <a href="{{ route('tv_streams.create') }}" class="text-white btn btn-success waves-effect waves-light mb-2 mr-2">Thêm</a> --}}
                                                 </div>
                                             </form>
                                         </div>
@@ -160,6 +160,7 @@
                                                         <th rowspan="2">Nhãn luồng</th>
                                                         <th rowspan="2">Dịch vụ</th>
                                                         <th rowspan="2">Loại tín hiệu</th>
+                                                        <th colspan="3" class="text-center">Truyền dẫn tại trạm</th>
                                                         <th colspan="4" class="text-center">Toạ độ truyền dẫn đầu xa</th>
                                                         <th rowspan="2">Ghi chú</th>
                                                         <th rowspan="2">Ngày cập nhật</th>
@@ -170,6 +171,9 @@
                                                         <th>Tên card</th>
                                                         <th>Toạ độ</th>
                                                         <th>Port</th>
+                                                        <th>Thiết bị</th>
+                                                        <th>Toạ độ</th>
+                                                        <th>Port</th>
                                                         <th>Trạm</th>
                                                         <th>Thiết bị</th>
                                                         <th>Toạ độ</th>
@@ -178,7 +182,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @php ($stt = 1)
-                                                    @foreach ($transmission_streams as $transmission_stream)
+                                                    @foreach ($tv_streams as $transmission_stream)
                                                         <tr>
                                                             <td class="text-center">{{ $stt++ }}</td>
                                                             <td>
@@ -190,6 +194,9 @@
                                                             <td>{{ $transmission_stream->thread_label }}</td>
                                                             <td>{{ $transmission_stream->service }}</td>
                                                             <td>{{ $transmission_stream->signal_type }}</td>
+                                                            <td>{{ $transmission_stream->device_station }}</td>
+                                                            <td>{{ $transmission_stream->coordinates_station }}</td>
+                                                            <td>{{ $transmission_stream->port_station }}</td>
                                                             <td>{{ $transmission_stream->station }}</td>
                                                             <td>{{ $transmission_stream->device }}</td>
                                                             <td>{{ $transmission_stream->coordinates_remote }}</td>
@@ -215,7 +222,7 @@
                 </button>
             </div>
 
-            <form method="POST" action="{{ route('transmission_streams.update', $transmission_stream->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('tv_streams.update', $transmission_stream->id) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="modal-body">
@@ -227,12 +234,16 @@
                                     <th rowspan="2">Nhãn luồng</th>
                                     <th rowspan="2">Dịch vụ</th>
                                     <th rowspan="2">Loại tín hiệu</th>
+                                    <th colspan="3" class="text-center">Truyền dẫn tại trạm</th>
                                     <th colspan="4" class="text-center">Toạ độ truyền dẫn đầu xa</th>
                                     <th rowspan="2">Ghi chú</th>
                                 </tr>
                                 <tr>
                                     <th>Thiết bị</th>
                                     <th>Tên card</th>
+                                    <th>Toạ độ</th>
+                                    <th>Port</th>
+                                    <th>Thiết bị</th>
                                     <th>Toạ độ</th>
                                     <th>Port</th>
                                     <th>Trạm</th>
@@ -249,14 +260,17 @@
                                     <td>{{ $transmission_stream->name_card }}</td>
                                     <td>{{ $transmission_stream->coordinates_origin }}</td>
                                     <td>{{ $transmission_stream->port_origin }}</td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="service" value="{{ $transmission_stream->service }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $transmission_stream->service }}"></td>
                                     <td>{{ $transmission_stream->signal_type }}</td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="station" value="{{ $transmission_stream->station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="device" value="{{ $transmission_stream->device }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" id="port" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="note" value="{{ $transmission_stream->note }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device_station" value="{{ $transmission_stream->device_station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_station" value="{{ $transmission_stream->coordinates_station }}"></td>
+                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_station" value="{{ $transmission_stream->port_station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="station" value="{{ $transmission_stream->station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="device" value="{{ $transmission_stream->device }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="note" value="{{ $transmission_stream->note }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -279,10 +293,10 @@
                                         
                                         @if (isset($request->device_id) || isset($request->device_id))
                                             <div class="mt-3">
-                                                {{ $transmission_streams->links() }}
+                                                {{ $tv_streams->links() }}
                                             </div>
                                         @endif
-                                        <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
+                                        <a href="{{ route('tv_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                     </div>
                                 </div>
 
@@ -360,7 +374,7 @@
             });
             if (li.hasClass("close-el")) {
                 $.ajax({
-                    url: "/device/get-device-transmission-by-station",
+                    url: "/device/get-device-television-by-station",
                     type: "POST",
                     data: {
                         id: stationId
@@ -373,7 +387,7 @@
                         if (data.count > 0) {
                             $.each(data.devices, function( index, value ) {
                                 html += `<li id="li-station-${value.id}" class="close-el">
-                                    <a href="/transmission_streams?device_id=${value.id}"> ${value.name}</a>
+                                    <a href="/tv_streams?device_id=${value.id}"> ${value.name}</a>
                                 </li>`;
                             });
                         }

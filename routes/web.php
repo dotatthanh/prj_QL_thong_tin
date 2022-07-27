@@ -28,6 +28,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SoftwareController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\TransmissionStreamController;
+use App\Http\Controllers\TvStreamContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,10 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('permissions', PermissionController::class);
 	Route::resource('units', UnitController::class);
 	Route::resource('transmission_streams', TransmissionStreamController::class);
+	Route::get('/transmission_stream/print', [TransmissionStreamController::class, 'print'])->name('transmission_streams.print');
+
+	Route::resource('tv_streams', TvStreamContoller::class);
+	Route::get('/tv_stream/print', [TvStreamContoller::class, 'print'])->name('tv_streams.print');
 
 	Route::resource('stations', StationController::class);
 	Route::get('/station/system-tree', [StationController::class, 'systemTree'])->name('station.system-tree');

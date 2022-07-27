@@ -46,11 +46,20 @@
                 </li>
                 @endcan
 
-                {{-- @can('Xem danh sách trạm') --}}
+                {{-- @can('Xem danh sách luồng truyền dẫn') --}}
                     <li>
                         <a href="{{ route('transmission_streams.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Luồng truyền dẫn</span>
+                        </a>
+                    </li>
+                {{-- @endcan --}}
+
+                {{-- @can('Xem danh sách luồng TH-TDL') --}}
+                    <li>
+                        <a href="{{ route('tv_streams.index') }}" class=" waves-effect">
+                            <i class="bx bx-calendar"></i>
+                            <span>Luồng TH-TDL</span>
                         </a>
                     </li>
                 {{-- @endcan --}}

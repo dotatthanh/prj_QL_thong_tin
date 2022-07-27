@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\Unit;
 use App\Models\Station;
-use App\Models\TransmissionStream;
+use App\Models\TvStream;
 use Illuminate\Http\Request;
 use DB;
 use PDF;
 
-class TransmissionStreamController extends Controller
+class TvStreamContoller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,16 +19,16 @@ class TransmissionStreamController extends Controller
      */
     public function index(Request $request)
     {
-        $transmission_streams = TransmissionStream::query();
+        $tv_streams = TvStream::query();
         if (isset($request->search) || isset($request->device_id)) {
             if (isset($request->search)) {
-                $transmission_streams = $transmission_streams->where('thread_label', 'like', '%'.$request->search.'%');
+                $tv_streams = $tv_streams->where('thread_label', 'like', '%'.$request->search.'%');
             }
 
             if (isset($request->device_id)) {
-                $transmission_streams = $transmission_streams->where('device_id', $request->device_id);
+                $tv_streams = $tv_streams->where('device_id', $request->device_id);
             }
-            $transmission_streams = $transmission_streams->paginate(50)->appends([
+            $tv_streams = $tv_streams->paginate(50)->appends([
                 'search' => $request->search,
                 'device_id' => $request->device_id,
             ]);
@@ -117,11 +117,11 @@ class TransmissionStreamController extends Controller
 
         $data = [
             'dataList' => $dataList,
-            'transmission_streams' => $transmission_streams,
+            'tv_streams' => $tv_streams,
             'request' => $request,
         ];
 
-        return view('transmission-stream.index', $data);
+        return view('tv-stream.index', $data);
     }
 
     /**
@@ -135,7 +135,7 @@ class TransmissionStreamController extends Controller
             'request' => $request,
         ];
 
-        return view('transmission-stream.create', $data);
+        return view('tv-stream.create', $data);
     }
 
     /**
@@ -151,7 +151,7 @@ class TransmissionStreamController extends Controller
             $device = Device::find($request->device_id);
 
             for ($port_origin=0; $port_origin < $request->port_origin; $port_origin++) { 
-                $create = TransmissionStream::create([
+                $create = TvStream::create([
                     'device_id' => $device->id,
                     'name_card' => $request->name_card,
                     'port_origin' => $port_origin+1,
@@ -164,11 +164,14 @@ class TransmissionStreamController extends Controller
                     'coordinates_remote' => $request->coordinates_remote[$port_origin],
                     'port_remote' => $request->port_remote[$port_origin],
                     'note' => $request->note[$port_origin],
+                    'port_station' => $request->port_station[$port_origin],
+                    'coordinates_station' => $request->coordinates_station[$port_origin],
+                    'device_station' => $request->device_station[$port_origin],
                 ]);
             }
             
             DB::commit();
-            return redirect()->route('transmission_streams.index', ['device_id' => $request->device_id])->with('alert-success','Thêm card thiết bị thành công!');
+            return redirect()->route('tv_streams.index', ['device_id' => $request->device_id])->with('alert-success','Thêm card thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Thêm card thiết bị thất bại!');
@@ -178,10 +181,10 @@ class TransmissionStreamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TransmissionStream  $transmissionStream
+     * @param  \App\Models\TvStream  $tvStream
      * @return \Illuminate\Http\Response
      */
-    public function show(TransmissionStream $transmissionStream)
+    public function show(TvStream $tvStream)
     {
         //
     }
@@ -189,10 +192,10 @@ class TransmissionStreamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TransmissionStream  $transmissionStream
+     * @param  \App\Models\TvStream  $tvStream
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransmissionStream $transmissionStream)
+    public function edit(TvStream $tvStream)
     {
         //
     }
@@ -201,15 +204,15 @@ class TransmissionStreamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TransmissionStream  $transmissionStream
+     * @param  \App\Models\TvStream  $tvStream
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransmissionStream $transmissionStream)
+    public function update(Request $request, TvStream $tvStream)
     {
         try {
             DB::beginTransaction();
 
-            $transmissionStream->update([
+            $tvStream->update([
                 'thread_label' => $request->thread_label,
                 'service' => $request->service,
                 'station' => $request->station,
@@ -217,6 +220,9 @@ class TransmissionStreamController extends Controller
                 'coordinates_remote' => $request->coordinates_remote,
                 'port_remote' => $request->port_remote,
                 'note' => $request->note,
+                'port_station' => $request->port_station,
+                'coordinates_station' => $request->coordinates_station,
+                'device_station' => $request->device_station,
             ]);
             
             DB::commit();
@@ -230,34 +236,34 @@ class TransmissionStreamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TransmissionStream  $transmissionStream
+     * @param  \App\Models\TvStream  $tvStream
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransmissionStream $transmissionStream)
+    public function destroy(TvStream $tvStream)
     {
         //
     }
 
     public function print(Request $request)
     {
-        $transmission_streams = TransmissionStream::query();
+        $tv_streams = TvStream::query();
         if (isset($request->search) || isset($request->device_id)) {
             if (isset($request->search)) {
-                $transmission_streams = $transmission_streams->where('thread_label', 'like', '%'.$request->search.'%');
+                $tv_streams = $tv_streams->where('thread_label', 'like', '%'.$request->search.'%');
             }
 
             if (isset($request->device_id)) {
-                $transmission_streams = $transmission_streams->where('device_id', $request->device_id);
+                $tv_streams = $tv_streams->where('device_id', $request->device_id);
             }
-            $transmission_streams = $transmission_streams->get();
+            $tv_streams = $tv_streams->get();
         }
 
         $data = [
-            'transmission_streams' => $transmission_streams,
+            'tv_streams' => $tv_streams,
         ];
 
-        $pdf = PDF::loadView('transmission-stream.pdf', $data)->setPaper('a2', 'landscape');
+        $pdf = PDF::loadView('tv-stream.pdf', $data)->setPaper('a2', 'landscape');
     
-        return $pdf->download('luong_truyen_dan.pdf');
+        return $pdf->download('luong_th_tdl.pdf');
     }
 }
