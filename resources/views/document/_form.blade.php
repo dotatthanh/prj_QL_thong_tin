@@ -19,6 +19,7 @@
         </div>
     </div>
 
+    @if ($route != "document.video")
     <div class="col-sm-6">
         <div class="form-group">
             <label for="image">Ảnh @if($routeType == 'create') <span class="text-danger">*</span> @endif</label>
@@ -26,6 +27,7 @@
             {!! $errors->first('image', '<span class="error">:message</span>') !!}
         </div>
     </div>
+    @endif
 
 </div>
 

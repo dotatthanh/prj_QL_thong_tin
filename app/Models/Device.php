@@ -19,4 +19,24 @@ class Device extends Model
     {
         return $this->belongsTo(Station::class);
     }
+
+    public function tranmissionStream()
+    {
+        return $this->hasMany(TransmissionStream::class);
+    }
+
+    public function getTranmissionStreamUsedAttribute()
+    {
+        return $this->tranmissionStream->where('thread_label', '!=', NULL)->count();
+    }
+
+    public function tvStream()
+    {
+        return $this->hasMany(TvStream::class);
+    }
+
+    public function getTvStreamUsedAttribute()
+    {
+        return $this->tvStream->where('thread_label', '!=', NULL)->count();
+    }
 }

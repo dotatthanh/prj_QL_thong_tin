@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý luồng TH-TDL @endsection
+@section('title') Quản lý luồng TH-TSL @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách luồng TH-TDL</h4>
+                            <h4 class="mb-0 font-size-18">Danh sách luồng TH-TSL</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách luồng TH-TDL</li>
+                                    <li class="breadcrumb-item active">Danh sách luồng TH-TSL</li>
                                 </ol>
                             </div>
 
@@ -45,7 +45,7 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm luồng truyền dẫn') --}}
+                                        @can('Thêm luồng truyền dẫn')
                                         @if (isset($request->device_id))
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                         @endif
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -205,11 +205,11 @@
                                                             <td>{{ date('d/m/Y', strtotime($transmission_stream->updated_at)) }}</td>
                                                             <td class="text-center">
                                                                 <ul class="list-inline font-size-20 contact-links mb-0">
-                                                                    {{-- @can('Chỉnh sửa luồng truyền dẫn') --}}
+                                                                    @can('Chỉnh sửa luồng truyền dẫn')
                                                                     <li class="list-inline-item px">
                                                                         <button type="button" class="mdi mdi-pencil text-success btn" data-toggle="modal" data-target="#modal-edit{{ $transmission_stream->id }}"></button>
                                                                     </li>
-                                                                    {{-- @endcan --}}
+                                                                    @endcan
                                                                 </ul>
 
 <div class="modal fade" id="modal-edit{{ $transmission_stream->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

@@ -10,7 +10,8 @@ class TransmissionStream extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'device_id',
+    	'station_id',
+        'device_id',
     	'name_card',
     	'port_origin',
     	'signal_type',

@@ -16,7 +16,7 @@
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('tv_streams.index') }}" title="Quản lý luồng TH-TDL" data-toggle="tooltip" data-placement="top">Quản lý luồng TH-TDL</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('tv_streams.index') }}" title="Quản lý luồng TH-TSL" data-toggle="tooltip" data-placement="top">Quản lý luồng TH-TSL</a></li>
                                     <li class="breadcrumb-item active">Cập nhật card thiết bị</li>
                                 </ol>
                             </div>

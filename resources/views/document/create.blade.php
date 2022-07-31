@@ -34,7 +34,7 @@
                                 <h4 class="card-title">Thông tin cơ bản</h4>
                                 <p class="card-title-desc">Điền tất cả thông tin bên dưới</p>
 
-                                <form method="POST" action="{{ route('documents.store') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ $route != "document.video" ? route('documents.store') : route('document.store.video')}}" enctype="multipart/form-data">
 
                                     @include('document._form', ['routeType' => 'create'])
                                     

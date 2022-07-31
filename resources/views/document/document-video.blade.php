@@ -63,9 +63,8 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th style="width: 70px;" class="text-center">STT</th>
-                                                <th>Ảnh</th>
+                                                <th>Video</th>
                                                 <th>Tên tài liệu</th>
-                                                <th>Loại tài liệu</th>
                                                 <th>Tải xuống</th>
                                                 <th class="text-center">Hành động</th>
                                             </tr>
@@ -76,19 +75,10 @@
                                                 <tr>
                                                     <td class="text-center">{{ $stt++ }}</td>
                                                     <td>
-                                                        <img class="avatar-xl" src="{{ asset($document->image) }}" alt="">
+                                                        <button type="button" class="bx bx-play-circle border-0 bg-white btn-play display-4" data-toggle="modal" data-target="#modal-edit{{ $document->id }}"></button>
                                                     </td>
                                                     <td>
                                                         {{ $document->name }}
-                                                    </td>
-                                                    <td>
-                                                        @if ($document->type == 1)
-                                                            Tài liệu video
-                                                        @elseif ($document->type == 1)
-                                                            Tài liệu đọc
-                                                        @else
-                                                            Tiếng anh chuyên ngành
-                                                        @endif
                                                     </td>
                                                     <td class="font-size-20">
                                                         <a href="{{ asset($document->file) }}" download data-toggle="tooltip" data-placement="top" title="Tải xuống"><i class="mdi mdi-cloud-download"></i></a>
@@ -114,6 +104,27 @@
                                                         </ul>
                                                     </td>
                                                 </tr>
+
+<div class="modal fade" id="modal-edit{{ $document->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Video</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+                <div class="modal-body m-auto">
+                    <video width="320" height="240" controls>
+                      <source src="{{ asset($document->file) }}" type="video/mp4">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+        </div>
+    </div>
+</div>
                                             @endforeach
                                         </tbody>
                                     </table>

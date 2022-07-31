@@ -65,7 +65,6 @@
                                                 <th style="width: 70px;" class="text-center">STT</th>
                                                 <th>Ảnh</th>
                                                 <th>Tên tài liệu</th>
-                                                <th>Loại tài liệu</th>
                                                 <th>Tải xuống</th>
                                                 <th class="text-center">Hành động</th>
                                             </tr>
@@ -80,15 +79,6 @@
                                                     </td>
                                                     <td>
                                                         {{ $document->name }}
-                                                    </td>
-                                                    <td>
-                                                        @if ($document->type == 1)
-                                                            Tài liệu video
-                                                        @elseif ($document->type == 1)
-                                                            Tài liệu đọc
-                                                        @else
-                                                            Tiếng anh chuyên ngành
-                                                        @endif
                                                     </td>
                                                     <td class="font-size-20">
                                                         <a href="{{ asset($document->file) }}" download data-toggle="tooltip" data-placement="top" title="Tải xuống"><i class="mdi mdi-cloud-download"></i></a>

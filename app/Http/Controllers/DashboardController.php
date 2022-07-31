@@ -3,24 +3,82 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\HealthCertification;
-use App\Models\ServiceVoucher;
-use App\Models\Prescription;
+use App\Models\TransmissionStream;
+use App\Models\TvStream;
+use App\Models\Station;
+use App\Models\Device;
+use DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-    	// $health_certification = HealthCertification::whereMonth('created_at', date('m'))->count();
-    	// $service_voucher = ServiceVoucher::whereMonth('created_at', date('m'))->count();
-    	// $prescription = Prescription::whereMonth('created_at', date('m'))->count();
+        $stations = Station::all();
+        $devices = Device::all();
 
-    	$data = [
-    		// 'health_certification' => $health_certification,
-    		// 'service_voucher' => $service_voucher,
-    		// 'prescription' => $prescription,
-    	];
+        $data = [
+            'stations' => $stations,
+            'devices' => $devices,
+        ];
 
-    	return view('dashboard', $data);
+    	return view('dashboard.dashboard', $data);
+    }
+
+    public function search(Request $request)
+    {
+        $station = Station::query();
+        $transmission_streams = TransmissionStream::query();
+        $tv_streams = TvStream::query();
+
+        if (isset($request->station_id)) {
+            $station = $station->find($request->station_id);
+        }
+
+        if (isset($request->device_id)) {
+            $transmission_streams = $transmission_streams->where('device_id', $request->device_id);
+            $tv_streams = $tv_streams->where('device_id', $request->device_id);
+        }
+
+        if (isset($request->name_card)) {
+            $transmission_streams = $transmission_streams->where('name_card', 'like', '%'.$request->name_card.'%');
+            $tv_streams = $tv_streams->where('name_card', 'like', '%'.$request->name_card.'%');
+        }
+
+        if (isset($request->coordinates_origin)) {
+            $transmission_streams = $transmission_streams->where('coordinates_origin', 'like', '%'.$request->coordinates_origin.'%');
+            $tv_streams = $tv_streams->where('coordinates_origin', 'like', '%'.$request->coordinates_origin.'%');
+        }
+
+        if (isset($request->port_origin)) {
+            $transmission_streams = $transmission_streams->where('port_origin', $request->port_origin);
+            $tv_streams = $tv_streams->where('port_origin', $request->port_origin);
+        }
+
+        if (isset($request->thread_label)) {
+            $transmission_streams = $transmission_streams->where('thread_label', 'like', '%'.$request->thread_label.'%');
+            $tv_streams = $tv_streams->where('thread_label', 'like', '%'.$request->thread_label.'%');
+        }
+
+        $transmission_streams = $transmission_streams->get();
+        $tv_streams = $tv_streams->get();
+
+        $data = [
+            'station' => $station,
+            'tv_streams' => $tv_streams,
+            'transmission_streams' => $transmission_streams,
+        ];
+
+        return view('dashboard.search', $data);
+    }
+
+    public function statistic()
+    {
+        $stations = Station::with('tranmissionStream', 'tvStream')->paginate(10);
+        
+        $data = [
+            'stations' => $stations,
+        ];
+
+        return view('dashboard.statistic', $data);
     }
 }

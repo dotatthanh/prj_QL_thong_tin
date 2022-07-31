@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDocumentRequest;
+use App\Http\Requests\StoreDocumentVideoRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use DB;
 use Illuminate\Support\Facades\Storage;
@@ -114,6 +115,32 @@ class DocumentController extends Controller
                 'type' => $request->type,
                 'name' => $request->name,
                 'image' => $file_path_image,
+                'file' => $file_path_file,
+            ]);
+            
+            DB::commit();
+            return redirect()->route($request->route)->with('alert-success','Thêm tài liệu thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Thêm tài liệu thất bại!');
+        }
+    }
+
+    public function storeVideo(StoreDocumentVideoRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $file_path_file = '';
+            if ($request->file('file')) {
+                $name = time().'_'.$request->file->getClientOriginalName();
+                $file_path_file = 'uploads/document/file/'.$name;
+                Storage::disk('public_uploads')->putFileAs('document/file', $request->file, $name);
+            }
+
+            $create = Document::create([
+                'type' => $request->type,
+                'name' => $request->name,
                 'file' => $file_path_file,
             ]);
             

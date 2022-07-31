@@ -71,7 +71,7 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($edit_station);
         $admin->givePermissionTo($delete_station);
 
-        $view_device = Permission::create(['name' => 'Xem danh sách thiết bị']);
+        // $view_device = Permission::create(['name' => 'Xem danh sách thiết bị']);
         $create_device = Permission::create(['name' => 'Thêm thiết bị']);
         $edit_device = Permission::create(['name' => 'Chỉnh sửa thiết bị']);
         $delete_device = Permission::create(['name' => 'Xóa thiết bị']);
@@ -100,5 +100,25 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($create_document);
         $admin->givePermissionTo($edit_document);
         $admin->givePermissionTo($delete_document);
+
+        $view_transmission_stream = Permission::create(['name' => 'Xem danh sách luồng truyền dẫn']);
+        $create_transmission_stream = Permission::create(['name' => 'Thêm luồng truyền dẫn']);
+        $edit_transmission_stream = Permission::create(['name' => 'Chỉnh sửa luồng truyền dẫn']);
+        // $delete_transmission_stream = Permission::create(['name' => 'Xóa luồng truyền dẫn']);
+
+        $admin->givePermissionTo($view_transmission_stream);
+        $admin->givePermissionTo($create_transmission_stream);
+        $admin->givePermissionTo($edit_transmission_stream);
+        $admin->givePermissionTo($delete_transmission_stream);
+
+        $view_tv_stream = Permission::create(['name' => 'Xem danh sách luồng TH-TSL']);
+        $create_tv_stream = Permission::create(['name' => 'Thêm luồng TH-TSL']);
+        $edit_tv_stream = Permission::create(['name' => 'Chỉnh sửa luồng TH-TSL']);
+        // $delete_tv_stream = Permission::create(['name' => 'Xóa luồng TH-TSL']);
+
+        $admin->givePermissionTo($view_tv_stream);
+        $admin->givePermissionTo($create_tv_stream);
+        $admin->givePermissionTo($edit_tv_stream);
+        $admin->givePermissionTo($delete_tv_stream);
     }
 }

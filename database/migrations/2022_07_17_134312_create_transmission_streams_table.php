@@ -15,6 +15,7 @@ class CreateTransmissionStreamsTable extends Migration
     {
         Schema::create('transmission_streams', function (Blueprint $table) {
             $table->id();
+            $table->integer('station_id')->comment('Trạm');
             $table->integer('device_id')->comment('[Toạ độ truyền dẫn tại trạm]: Thiết bị');
             $table->string('name_card')->comment('[Toạ độ truyền dẫn tại trạm]: Tên card');
             $table->string('coordinates_origin')->comment('[Toạ độ truyền dẫn tại trạm]: Toạ độ');

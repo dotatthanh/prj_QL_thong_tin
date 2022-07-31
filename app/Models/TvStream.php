@@ -10,6 +10,7 @@ class TvStream extends Model
     use HasFactory;
 
     protected $fillable = [
+        'station_id',
     	'device_id',
     	'name_card',
     	'port_origin',

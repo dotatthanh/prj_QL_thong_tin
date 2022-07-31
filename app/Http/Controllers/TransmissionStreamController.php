@@ -152,6 +152,7 @@ class TransmissionStreamController extends Controller
 
             for ($port_origin=0; $port_origin < $request->port_origin; $port_origin++) { 
                 $create = TransmissionStream::create([
+                    'station_id' => $device->station->id,
                     'device_id' => $device->id,
                     'name_card' => $request->name_card,
                     'port_origin' => $port_origin+1,

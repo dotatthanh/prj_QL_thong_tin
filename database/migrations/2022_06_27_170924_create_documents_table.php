@@ -18,7 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('type');
             $table->string('name');
             $table->string('file');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

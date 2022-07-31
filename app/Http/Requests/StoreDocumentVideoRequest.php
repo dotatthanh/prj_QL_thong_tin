@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDocumentRequest extends FormRequest
+class StoreDocumentVideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class StoreDocumentRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255', 
-            'file' => 'required|mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp|max:16000',
+            'image' => 'image',
+            'file' => 'required|mimes:mp4|max:16000',
         ];
     }
 
@@ -34,8 +35,9 @@ class StoreDocumentRequest extends FormRequest
         return [
             'name.required' => 'Tên tài liệu là trường bắt buộc.', 
             'name.max' => 'Tên tài liệu không được dài quá :max ký tự.', 
+            'image.required' => 'Ảnh là trường bắt buộc.',
             'file.required' => 'Tập tin tài liệu là trường bắt buộc.',
-            'file.mimes' => 'Tập tin tài liệu không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, webp).',
+            'file.mimes' => 'Tập tin tài liệu không đúng định dạng (mp4).',
             'file.max' => 'Tập tin tài liệu không được lớn hơn 16MB.',
         ];
     }

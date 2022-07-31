@@ -44,13 +44,13 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm thiết bị') --}}
+                                        @can('Thêm thiết bị')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('devices.create', ['type' => $type]) }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm thiết bị</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -73,13 +73,13 @@
                                                     <td>{{ $device->station->name }}</td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa thiết bị') --}}
+                                                            @can('Chỉnh sửa thiết bị')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('devices.edit', $device->id) }}?type={{ $type }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
 
-                                                            {{-- @can('Xóa thiết bị') --}}
+                                                            @can('Xóa thiết bị')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('devices.destroy', $device->id) }}">
                                                                     @csrf
@@ -88,7 +88,7 @@
                                                                     <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
                                                     </td>
                                                 </tr>

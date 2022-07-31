@@ -220,4 +220,14 @@ class DeviceController extends Controller
             'count' => $devices->count(),
         ]);
     }
+
+    public function getDeviceByStation(Request $request)
+    {
+        $devices = Device::where('station_id', $request->id)->get();
+
+        return \response()->json([
+            'devices' => $devices,
+            'count' => $devices->count(),
+        ]);
+    }
 }
