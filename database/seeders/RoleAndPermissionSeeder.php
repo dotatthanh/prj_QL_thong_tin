@@ -76,7 +76,7 @@ class RoleAndPermissionSeeder extends Seeder
         $edit_device = Permission::create(['name' => 'Chỉnh sửa thiết bị']);
         $delete_device = Permission::create(['name' => 'Xóa thiết bị']);
 
-        $admin->givePermissionTo($view_device);
+        // $admin->givePermissionTo($view_device);
         $admin->givePermissionTo($create_device);
         $admin->givePermissionTo($edit_device);
         $admin->givePermissionTo($delete_device);
@@ -109,7 +109,7 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($view_transmission_stream);
         $admin->givePermissionTo($create_transmission_stream);
         $admin->givePermissionTo($edit_transmission_stream);
-        $admin->givePermissionTo($delete_transmission_stream);
+        // $admin->givePermissionTo($delete_transmission_stream);
 
         $view_tv_stream = Permission::create(['name' => 'Xem danh sách luồng TH-TSL']);
         $create_tv_stream = Permission::create(['name' => 'Thêm luồng TH-TSL']);
@@ -119,6 +119,6 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($view_tv_stream);
         $admin->givePermissionTo($create_tv_stream);
         $admin->givePermissionTo($edit_tv_stream);
-        $admin->givePermissionTo($delete_tv_stream);
+        // $admin->givePermissionTo($delete_tv_stream);
     }
 }
