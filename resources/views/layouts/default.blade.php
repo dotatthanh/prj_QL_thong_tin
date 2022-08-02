@@ -49,14 +49,14 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('dashboard') }}" class="logo logo-light">
+                            {{-- <a href="{{ route('dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
                                     <img src="{{ asset('images\logo1.png') }}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
                                     <img src="{{ asset('images\logo1.png') }}" alt="" height="19">
                                 </span>
-                            </a>
+                            </a> --}}
                         </div>
 
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">

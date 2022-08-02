@@ -26,7 +26,7 @@ class UpdateDocumentRequest extends FormRequest
         return [
             'name' => 'required|max:255', 
             'image' => 'image',
-            'file' => 'mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4|max:16000',
+            'file' => 'mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4',
         ];
     }
 
@@ -37,7 +37,6 @@ class UpdateDocumentRequest extends FormRequest
             'name.max' => 'Tên tài liệu không được dài quá :max ký tự.', 
             'image.image' => 'Ảnh không đúng định dạng (jpg, jpeg, png, bmp, gif, svg hoặc webp).',
             'file.mimes' => 'Tập tin tài liệu không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4 hoặc webp).',
-            'file.max' => 'Tập tin tài liệu không được lớn hơn 16MB.',
         ];
     }
 }
