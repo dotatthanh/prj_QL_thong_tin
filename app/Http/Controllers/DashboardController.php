@@ -32,6 +32,8 @@ class DashboardController extends Controller
 
         if (isset($request->station_id)) {
             $station = $station->find($request->station_id);
+            $transmission_streams = $transmission_streams->where('station_id', $request->station_id);
+            $tv_streams = $tv_streams->where('station_id', $request->station_id);
         }
 
         if (isset($request->device_id)) {
