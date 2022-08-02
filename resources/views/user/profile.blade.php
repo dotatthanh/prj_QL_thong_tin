@@ -19,8 +19,9 @@
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Thông tin cá nhân" data-toggle="tooltip" data-placement="top">Thông tin cá nhân</a></li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -98,20 +99,20 @@
                                                 <td>{{ $user->name }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Số điện thoại :</th>
-                                                <td>{{ $user->phone }}</td>
+                                                <th scope="row">Đơn vị BĐKT :</th>
+                                                <td>{{ $user->unit ? $user->unit->name : '' }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">E-mail :</th>
-                                                <td>{{ $user->email }}</td>
+                                                <th scope="row">Tên đăng nhập :</th>
+                                                <td>{{ $user->username }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Ngày sinh :</th>
-                                                <td>{{ date("d-m-Y", strtotime($user->birthday)) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Địa chỉ :</th>
-                                                <td>{{ $user->address }}</td>
+                                                <th scope="row">Vai trò :</th>
+                                                <td>
+                                                    @foreach ($user->roles as $role)
+                                                        <span class="badge badge-dark text-white">{{ $role->name }}</span>
+                                                    @endforeach
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

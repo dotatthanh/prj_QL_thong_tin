@@ -26,7 +26,7 @@ class StoreSoftwareRequest extends FormRequest
         return [
             'name' => 'required|max:255', 
             'image' => 'required|image',
-            'file' => 'required|mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4|max:16000',
+            'file' => 'required|mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4,exe,rar,zip|max:16000',
         ];
     }
 
@@ -38,7 +38,7 @@ class StoreSoftwareRequest extends FormRequest
             'image.required' => 'Ảnh là trường bắt buộc.',
             'image.image' => 'Ảnh không đúng định dạng (jpg, jpeg, png, bmp, gif, svg hoặc webp).',
             'file.required' => 'Tập tin cài đặt là trường bắt buộc.',
-            'file.mimes' => 'Tập tin cài đặt không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4 hoặc webp).',
+            'file.mimes' => 'Tập tin cài đặt không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4, exe, rar, zip hoặc webp).',
             'file.max' => 'Tập tin cài đặt không được lớn hơn 16MB.',
         ];
     }

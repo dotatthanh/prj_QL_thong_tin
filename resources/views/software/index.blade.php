@@ -20,8 +20,9 @@
                                     <li class="breadcrumb-item active">Danh sách phần mềm hỗ trợ</li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -44,13 +45,13 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm phần mềm hỗ trợ') --}}
+                                        @can('Thêm phần mềm hỗ trợ')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('softwares.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm phần mềm hỗ trợ</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -71,7 +72,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $stt++ }}</td>
                                                     <td>
-                                                        <img class="avatar" src="{{ asset($software->image) }}" alt="">
+                                                        <img class="avatar" src="{{ asset($software->image) }}" alt="" style="max-width: 300px;">
                                                     </td>
                                                     <td>
                                                         {{ $software->name }}

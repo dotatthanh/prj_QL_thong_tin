@@ -20,8 +20,9 @@
                                     <li class="breadcrumb-item active">Cập nhật card thiết bị</li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->

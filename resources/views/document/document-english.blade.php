@@ -21,8 +21,9 @@
                                     <li class="breadcrumb-item active">Tiếng anh chuyên ngành</li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->

@@ -30,9 +30,9 @@
 
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="email">Email <span class="text-danger">*</span></label>
-            <input id="email" name="email" type="text" class="form-control" placeholder="Email" value="{{ old('email', $data_edit->email ?? '') }}">
-            {!! $errors->first('email', '<span class="error">:message</span>') !!}
+            <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Nhập tên đăng nhập" value="{{ old('username', $data_edit->username ?? '') }}">
+            {!! $errors->first('username', '<span class="error">:message</span>') !!}
         </div>
 
         <div class="form-group">

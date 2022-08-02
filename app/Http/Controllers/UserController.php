@@ -70,7 +70,7 @@ class UserController extends Controller
                 'unit_id' => $request->unit_id,
                 'name' => $request->name,
                 'password' => bcrypt($request->password),
-                'email' => $request->email,
+                'username' => $request->username,
             ]);
 
             foreach ($request->roles as $role_id) {
@@ -139,7 +139,7 @@ class UserController extends Controller
             $user->update([
                 'unit_id' => $request->unit_id,
                 'name' => $request->name,
-                'email' => $request->email,
+                'username' => $request->username,
             ]);
         
             $user->roles()->detach();

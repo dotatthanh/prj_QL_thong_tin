@@ -37,8 +37,6 @@ class DeviceController extends Controller
 
     public function transmission($id, Request $request)
     {
-        // $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
-        // $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
         $devices = Device::where('station_id', $id)->where('type', 1);
 
         if ($request->search) {
@@ -58,8 +56,6 @@ class DeviceController extends Controller
 
     public function television($id, Request $request)
     {
-        // $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
-        // $stations = Station::whereIn('unit_id', $units)->pluck('id')->toArray();
         $devices = Device::where('station_id', $id)->where('type', 2);
 
         if ($request->search) {
@@ -90,6 +86,7 @@ class DeviceController extends Controller
         $data = [
             'stations' => $stations,
             'type' => $request->type,
+            'id' => $request->id,
         ];
 
         return view('device.create', $data);
@@ -114,8 +111,8 @@ class DeviceController extends Controller
             
             DB::commit();
             if ($request->type == 1)
-                return redirect()->route('device.transmission')->with('alert-success','Thêm thiết bị thành công!');
-            return redirect()->route('device.television')->with('alert-success','Thêm thiết bị thành công!');
+                return redirect()->route('device.transmission', $request->id)->with('alert-success','Thêm thiết bị thành công!');
+            return redirect()->route('device.television', $request->id)->with('alert-success','Thêm thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Thêm thiết bị thất bại!');
@@ -148,6 +145,7 @@ class DeviceController extends Controller
             'data_edit' => $device,
             'stations' => $stations,
             'type' => $request->type,
+            'id' => $request->id,
         ];
 
         return view('device.edit', $data);
@@ -172,8 +170,8 @@ class DeviceController extends Controller
             
             DB::commit();
             if ($request->type == 1)
-                return redirect()->route('device.transmission')->with('alert-success','Thêm thiết bị thành công!');
-            return redirect()->route('device.television')->with('alert-success','Thêm thiết bị thành công!');
+                return redirect()->route('device.transmission', $request->id)->with('alert-success','Sửa thiết bị thành công!');
+            return redirect()->route('device.television', $request->id)->with('alert-success','Sửa thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Sửa thiết bị thất bại!');

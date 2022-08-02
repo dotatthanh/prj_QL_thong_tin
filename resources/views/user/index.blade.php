@@ -21,8 +21,9 @@
                                     <li class="breadcrumb-item active">Danh sách tài khoản</li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -62,6 +63,7 @@
                                                 <th style="width: 70px;" class="text-center">STT</th>
                                                 <th>Họ và tên</th>
                                                 <th>Đơn vị BĐKT</th>
+                                                <th>Tên đăng nhập</th>
                                                 <th>Vai trò</th>
                                                 <th class="text-center">Hành động</th>
                                             </tr>
@@ -75,6 +77,7 @@
                                                     <td>
                                                         {{ $user->unit ? $user->unit->name : '' }}
                                                     </td>
+                                                    <td>{{ $user->username }}</td>
                                                     <td>
                                                         @foreach ($user->roles as $role)
                                                             <span class="badge badge-dark text-white">{{ $role->name }}</span>

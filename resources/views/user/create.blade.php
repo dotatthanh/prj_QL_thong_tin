@@ -21,8 +21,9 @@
                                     <li class="breadcrumb-item active">Thêm tài khoản</li>
                                 </ol>
                             </div>
-
                         </div>
+
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->

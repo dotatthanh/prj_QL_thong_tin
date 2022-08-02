@@ -20,7 +20,6 @@
                                     <li class="breadcrumb-item active">Thống kê</li>
                                 </ol>
                             </div>
-
                         </div>
 
                         <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">

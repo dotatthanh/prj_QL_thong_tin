@@ -51,10 +51,10 @@
 
                             <a href="{{ route('dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{ asset('images\logo-light.svg') }}" alt="" height="22">
+                                    <img src="{{ asset('images\logo1.png') }}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{ asset('images\logo-light.png') }}" alt="" height="19">
+                                    <img src="{{ asset('images\logo1.png') }}" alt="" height="19">
                                 </span>
                             </a>
                         </div>

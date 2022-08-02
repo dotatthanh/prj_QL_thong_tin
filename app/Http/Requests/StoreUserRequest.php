@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255', 
-            'email' => 'required|string|email|unique:users|max:255',
+            'username' => 'required|string|unique:users|max:255',
             'roles' => 'required',
             'password' => 'required|confirmed|min:8|string',
             'unit_id' => 'required',
@@ -37,11 +37,10 @@ class StoreUserRequest extends FormRequest
         return [
             'name.required' => 'Họ và tên là trường bắt buộc.', 
             'name.max' => 'Họ và tên không được dài quá :max ký tự.', 
-            'email.required' => 'Email là trường bắt buộc.',
-            'email.email' => 'Email chưa đúng định dạng.',
-            'email.unique' => 'Email đã tồn tại.',
-            'email.string' => 'Email phải là một chuỗi.',
-            'email.max' => 'Email không được dài quá :max ký tự.',
+            'username.required' => 'Tên đăng nhập là trường bắt buộc.',
+            'username.unique' => 'Tên đăng nhập đã tồn tại.',
+            'username.string' => 'Tên đăng nhập phải là một chuỗi.',
+            'username.max' => 'Tên đăng nhập không được dài quá :max ký tự.',
             'roles.required' => 'Vai trò là trường bắt buộc.', 
             'password.required' => 'Mật khẩu là trường bắt buộc!',
             'password.confirmed' => 'Xác nhận mật khẩu không chính xác!',

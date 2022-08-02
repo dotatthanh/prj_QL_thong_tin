@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         // Tạo admin
         User::create([
         	'name' => 'Admin',
-        	'email' => 'admin@gmail.com',
+        	'username' => 'admin',
         	'password' => bcrypt('123123123'),
         	'unit_id' => null,
         ]);

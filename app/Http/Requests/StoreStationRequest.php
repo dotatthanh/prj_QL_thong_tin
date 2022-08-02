@@ -29,7 +29,7 @@ class StoreStationRequest extends FormRequest
                 'required', 'max:255',
                 Rule::unique('stations')->ignore($this->station),
             ],
-            'phone_number' => 'required|size:10',
+            'phone_number' => 'required',
             'address' => 'required',
             'unit_id' => 'required',
         ];
@@ -42,7 +42,6 @@ class StoreStationRequest extends FormRequest
             'name.max' => 'Tên trạm không được dài quá :max ký tự.', 
             'name.unique' => 'Trạm đã tồn tại.', 
             'phone_number.required' => 'Số điện thoại là trường bắt buộc.',
-            'phone_number.size' => 'Số điện thoại phải là :size số.',
             'address.required' => 'Địa chỉ là trường bắt buộc.',
             'unit_id.required' => 'Đơn vị BĐKT là trường bắt buộc.',
         ];
