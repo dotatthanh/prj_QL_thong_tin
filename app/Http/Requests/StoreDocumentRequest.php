@@ -25,7 +25,7 @@ class StoreDocumentRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255', 
-            'file' => 'required|mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp',
+            'file' => 'required|mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4,exe,rar,zip',
         ];
     }
 
@@ -35,7 +35,7 @@ class StoreDocumentRequest extends FormRequest
             'name.required' => 'Tên tài liệu là trường bắt buộc.', 
             'name.max' => 'Tên tài liệu không được dài quá :max ký tự.', 
             'file.required' => 'Tập tin tài liệu là trường bắt buộc.',
-            'file.mimes' => 'Tập tin tài liệu không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, webp).',
+            'file.mimes' => 'Tập tin tài liệu không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4, exe, rar, zip hoặc webp).',
         ];
     }
 }
