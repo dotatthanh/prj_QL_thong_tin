@@ -26,7 +26,7 @@ class UpdateSoftwareRequest extends FormRequest
         return [
             'name' => 'required|max:255', 
             'image' => 'image',
-            'file' => 'mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4,exe,rar,zip',
+            // 'file' => 'mimes:pdf,jpg,jpeg,png,bmp,gif,svg,webp,mp3,mp4,exe,rar,zip',
         ];
     }
 
@@ -36,8 +36,7 @@ class UpdateSoftwareRequest extends FormRequest
             'name.required' => 'Tên phần mềm hỗ trợ là trường bắt buộc.', 
             'name.max' => 'Tên phần mềm hỗ trợ không được dài quá :max ký tự.', 
             'image.image' => 'Ảnh không đúng định dạng (jpg, jpeg, png, bmp, gif, svg hoặc webp).',
-            'file.mimes' => 'Tập tin cài đặt không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4, exe, rar, zip hoặc webp).',
-            // 'file.max' => 'Tập tin cài đặt không được lớn hơn 16MB.',
+            // 'file.mimes' => 'Tập tin cài đặt không đúng định dạng (jpg, jpeg, png, bmp, gif, svg, pdf, mp3, mp4, exe, rar, zip hoặc webp).',
         ];
     }
 }
