@@ -26,7 +26,7 @@ class StoreDocumentVideoRequest extends FormRequest
         return [
             'name' => 'required|max:255', 
             'image' => 'image',
-            'file' => 'required|mimes:mp4|max:16000',
+            'file' => 'required|mimes:mp4',
         ];
     }
 
@@ -38,7 +38,6 @@ class StoreDocumentVideoRequest extends FormRequest
             'image.required' => 'Ảnh là trường bắt buộc.',
             'file.required' => 'Tập tin tài liệu là trường bắt buộc.',
             'file.mimes' => 'Tập tin tài liệu không đúng định dạng (mp4).',
-            'file.max' => 'Tập tin tài liệu không được lớn hơn 16MB.',
         ];
     }
 }
