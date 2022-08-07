@@ -323,7 +323,7 @@
             });
             if (li.hasClass("close-el")) {
                 $.ajax({
-                    url: "/station/get-unit-child-list",
+                    url: "{{ url('/') }}/station/get-unit-child-list",
                     type: "POST",
                     data: {
                         id: parentId
@@ -371,7 +371,7 @@
             });
             if (li.hasClass("close-el")) {
                 $.ajax({
-                    url: "/device/get-device-transmission-by-station",
+                    url: "{{ url('/') }}/device/get-device-transmission-by-station",
                     type: "POST",
                     data: {
                         id: stationId
@@ -384,7 +384,7 @@
                         if (data.count > 0) {
                             $.each(data.devices, function( index, value ) {
                                 html += `<li id="li-station-${value.id}" class="close-el">
-                                    <a href="/transmission_streams?device_id=${value.id}"> ${value.name}</a>
+                                    <a href="{{ url('/') }}/transmission_streams?device_id=${value.id}"> ${value.name}</a>
                                 </li>`;
                             });
                         }

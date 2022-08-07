@@ -192,7 +192,7 @@ class DeviceController extends Controller
             $device->destroy($device->id);
             
             DB::commit();
-            return redirect()->route('devices.index')->with('alert-success','Xóa thiết bị thành công!');
+            return redirect()->back()->with('alert-success','Xóa thiết bị thành công!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('alert-error','Xóa thiết bị thất bại!');
