@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -22,7 +23,6 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -201,9 +201,19 @@
                                                                 <ul class="list-inline font-size-20 contact-links mb-0">
                                                                     @can('Chỉnh sửa luồng truyền dẫn')
                                                                     <li class="list-inline-item px">
-                                                                        <button type="button" class="mdi mdi-pencil text-success btn" data-toggle="modal" data-target="#modal-edit{{ $transmission_stream->id }}"></button>
+                                                                        <button type="button" class="border-0 bg-white" data-toggle="modal" data-target="#modal-edit{{ $transmission_stream->id }}"><i class="mdi mdi-pencil text-success"></i></button>
                                                                     </li>
                                                                     @endcan
+                                                                    {{-- @can('Xóa luồng truyền dẫn') --}}
+                                                                    <li class="list-inline-item px">
+                                                                        <form method="post" action="{{ route('transmission_streams.destroy', $transmission_stream->id) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            
+                                                                            <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                        </form>
+                                                                    </li>
+                                                                    {{-- @endcan --}}
                                                                 </ul>
 
 <div class="modal fade" id="modal-edit{{ $transmission_stream->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -247,17 +257,17 @@
                                     <td>
                                         {{ $transmission_stream->Device->name }}
                                     </td>
-                                    <td>{{ $transmission_stream->name_card }}</td>
-                                    <td>{{ $transmission_stream->coordinates_origin }}</td>
-                                    <td>{{ $transmission_stream->port_origin }}</td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="service" value="{{ $transmission_stream->service }}"></td>
-                                    <td>{{ $transmission_stream->signal_type }}</td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="station" value="{{ $transmission_stream->station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="device" value="{{ $transmission_stream->device }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" id="port" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" id="port" placeholder="Nhập port" name="note" value="{{ $transmission_stream->note }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập tên card" name="name_card" value="{{ $transmission_stream->name_card }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_origin" value="{{ $transmission_stream->coordinates_origin }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="port_origin" value="{{ $transmission_stream->port_origin }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $transmission_stream->service }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $transmission_stream->signal_type }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập trạm" name="station" value="{{ $transmission_stream->station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device" value="{{ $transmission_stream->device }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập ghi chú" name="note" value="{{ $transmission_stream->note }}"></td>
                                 </tr>
                             </tbody>
                         </table>

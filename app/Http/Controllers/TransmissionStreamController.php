@@ -211,6 +211,10 @@ class TransmissionStreamController extends Controller
             DB::beginTransaction();
 
             $transmissionStream->update([
+                'signal_type' => $request->signal_type,
+                'port_origin' => $request->port_origin,
+                'coordinates_origin' => $request->coordinates_origin,
+                'name_card' => $request->name_card,
                 'thread_label' => $request->thread_label,
                 'service' => $request->service,
                 'station' => $request->station,
@@ -236,7 +240,17 @@ class TransmissionStreamController extends Controller
      */
     public function destroy(TransmissionStream $transmissionStream)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $transmissionStream->destroy($transmissionStream->id);
+            
+            DB::commit();
+            return redirect()->back()->with('alert-success','Xóa luồng truyền dẫn thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Xóa luồng truyền dẫn thất bại!');
+        }
     }
 
     public function print(Request $request)

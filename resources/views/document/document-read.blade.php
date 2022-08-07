@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -23,7 +24,6 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -46,7 +46,7 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm tài liệu') --}}
+                                        @can('Thêm tài liệu')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('documents.create', [
@@ -55,7 +55,7 @@
                                                 ]) }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm tài liệu</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -86,13 +86,13 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa tài liệu') --}}
+                                                            @can('Chỉnh sửa tài liệu')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('documents.edit', $document->id) }}?route=document.read" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
 
-                                                            {{-- @can('Xóa tài liệu') --}}
+                                                            @can('Xóa tài liệu')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('documents.destroy', $document->id) }}">
                                                                     @csrf
@@ -101,7 +101,7 @@
                                                                     <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
                                                     </td>
                                                 </tr>

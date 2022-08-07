@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -22,7 +23,6 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -33,25 +33,27 @@
                             <div class="card-body">
                                 <form method="GET" action="{{ route('stations.index') }}">
                                     <div class="row mb-2">
-                                        <div class="col-sm-5">
-                                            <div class="search-box mr-2 mb-2 d-inline-block">
+                                        <div class="col-sm-4">
+                                            <div class="search-box mr-2 mb-2">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Nhập tên trạm">
+                                                    <input type="text" name="search" class="form-control" placeholder="Nhập tên trạm, số điện thoại, đơn vị BĐKT">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-sm-2">
                                             <button type="submit" class="btn btn-success waves-effect waves-light">
                                                 <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm trạm') --}}
-                                        <div class="col-sm-7">
+                                        @can('Thêm trạm')
+                                        <div class="col-sm-6">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('stations.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm trạm</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
 
                                         <div class="col-sm-12">
                                             <a href="{{ route('station.system-tree') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-chart-tree"></i> Cây hệ thống</a>
@@ -82,13 +84,13 @@
                                                     <td>{{ $station->unit->name }}</td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa trạm') --}}
+                                                            @can('Chỉnh sửa trạm')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('stations.edit', $station->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
 
-                                                            {{-- @can('Xóa trạm') --}}
+                                                            @can('Xóa trạm')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('stations.destroy', $station->id) }}">
                                                                     @csrf
@@ -97,7 +99,7 @@
                                                                     <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
                                                     </td>
                                                 </tr>

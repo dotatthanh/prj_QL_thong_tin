@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -23,7 +24,7 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
+                        
                     </div>
                 </div>
                 <!-- end page title -->
@@ -46,7 +47,7 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm tài liệu') --}}
+                                        @can('Thêm tài liệu')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('documents.create', [
@@ -55,7 +56,7 @@
                                                 ]) }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm tài liệu</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -76,7 +77,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $stt++ }}</td>
                                                     <td>
-                                                        <button type="button" class="bx bx-play-circle border-0 bg-white btn-play display-4" data-toggle="modal" data-target="#modal-edit{{ $document->id }}"></button>
+                                                        <a href="{{ route('documents.show', $document->id) }}" class="bx bx-play-circle border-0 bg-white btn-play display-4"></a>
                                                     </td>
                                                     <td>
                                                         {{ $document->name }}
@@ -86,13 +87,13 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa tài liệu') --}}
+                                                            @can('Chỉnh sửa tài liệu')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('documents.edit', $document->id) }}?route=document.video" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
 
-                                                            {{-- @can('Xóa tài liệu') --}}
+                                                            @can('Xóa tài liệu')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('documents.destroy', $document->id) }}">
                                                                     @csrf
@@ -101,31 +102,10 @@
                                                                     <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
                                                     </td>
                                                 </tr>
-
-<div class="modal fade" id="modal-edit{{ $document->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Video</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-                <div class="modal-body m-auto">
-                    <video width="320" height="240" controls>
-                      <source src="{{ asset($document->file) }}" type="video/mp4">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
-        </div>
-    </div>
-</div>
                                             @endforeach
                                         </tbody>
                                     </table>

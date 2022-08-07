@@ -21,7 +21,16 @@ class StationController extends Controller
         $stations = Station::whereIn('unit_id', $units);
 
         if ($request->search) {
-            $stations = $stations->where('name', 'like', '%'.$request->search.'%');
+            $stations = Station::whereIn('unit_id', $units)->where('name', 'like', '%'.$request->search.'%');
+            if ($stations->count() == 0) {
+                $stations = Station::whereIn('unit_id', $units)->where('phone_number', 'like', '%'.$request->search.'%');
+
+                if ($stations->count() == 0) {
+                    $stations = Station::whereIn('unit_id', $units)->whereHas('unit', fn($query) =>
+                        $query->where('name', 'like', '%'.$request->search.'%')
+                    );
+                }
+            }
         }
         $stations = $stations->paginate(10)->appends(['search' => $request->search]);
 
@@ -145,12 +154,11 @@ class StationController extends Controller
         try {
             DB::beginTransaction();
 
-            if ($station->devices->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa trạm thất bại! Trạm '.$station->name.' đang có dữ liệu thiết bị.');
-            }
-
+            $station->devices()->delete();
+            $station->tranmissionStream()->delete();
+            $station->tvStream()->delete();
             $station->destroy($station->id);
-            
+
             DB::commit();
             return redirect()->route('stations.index')->with('alert-success','Xóa trạm thành công!');
         } catch (Exception $e) {

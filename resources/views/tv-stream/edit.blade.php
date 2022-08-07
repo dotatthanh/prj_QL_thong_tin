@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -22,7 +23,6 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->

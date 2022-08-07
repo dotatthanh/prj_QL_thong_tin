@@ -160,7 +160,11 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        $data = [
+            'document' => $document,
+        ];
+        
+        return view('document.show', $data);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\TransmissionStream;
 use App\Models\TvStream;
 use App\Models\Station;
 use App\Models\Device;
+use App\Models\Unit;
 use DB;
 
 class DashboardController extends Controller
@@ -26,14 +27,16 @@ class DashboardController extends Controller
 
     public function search(Request $request)
     {
-        $station = Station::query();
         $transmission_streams = TransmissionStream::query();
         $tv_streams = TvStream::query();
 
         if (isset($request->station_id)) {
-            $station = $station->find($request->station_id);
+            $station = Station::find($request->station_id);
             $transmission_streams = $transmission_streams->where('station_id', $request->station_id);
             $tv_streams = $tv_streams->where('station_id', $request->station_id);
+        }
+        else {
+            $station = Station::find(0);
         }
 
         if (isset($request->device_id)) {
@@ -75,7 +78,10 @@ class DashboardController extends Controller
 
     public function statistic()
     {
-        $stations = Station::with('tranmissionStream', 'tvStream')->paginate(10);
+        $units = Unit::getTreeUnit([auth()->user()->unit_id])->pluck('id')->toArray();
+        $stations = Station::whereIn('unit_id', $units)->paginate(10);
+
+        // $stations = Station::with('tranmissionStream', 'tvStream')->paginate(10);
         
         $data = [
             'stations' => $stations,

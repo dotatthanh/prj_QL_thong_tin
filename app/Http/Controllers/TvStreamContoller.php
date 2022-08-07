@@ -214,6 +214,10 @@ class TvStreamContoller extends Controller
             DB::beginTransaction();
 
             $tvStream->update([
+                'signal_type' => $request->signal_type,
+                'port_origin' => $request->port_origin,
+                'coordinates_origin' => $request->coordinates_origin,
+                'name_card' => $request->name_card,
                 'thread_label' => $request->thread_label,
                 'service' => $request->service,
                 'station' => $request->station,
@@ -242,7 +246,17 @@ class TvStreamContoller extends Controller
      */
     public function destroy(TvStream $tvStream)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $tvStream->destroy($tvStream->id);
+            
+            DB::commit();
+            return redirect()->back()->with('alert-success','Xóa luồng TH-TSL thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Xóa luồng TH-TSL thất bại!');
+        }
     }
 
     public function print(Request $request)

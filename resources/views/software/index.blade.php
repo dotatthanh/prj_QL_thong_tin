@@ -6,6 +6,7 @@
     <div class="main-content">
 
         <div class="page-content">
+            <img src="{{ asset('images/logo.png') }}" alt="" class="w-100 mb-5">
             <div class="container-fluid">
 
                 <!-- start page title -->
@@ -22,7 +23,6 @@
                             </div>
                         </div>
 
-                        <img src="{{ asset('images/logo.png') }}" alt="" class="w-100">
                     </div>
                 </div>
                 <!-- end page title -->
@@ -82,13 +82,13 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa phần mềm hỗ trợ') --}}
+                                                            @can('Chỉnh sửa phần mềm hỗ trợ')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('softwares.edit', $software->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
 
-                                                            {{-- @can('Xóa phần mềm hỗ trợ') --}}
+                                                            @can('Xóa phần mềm hỗ trợ')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('softwares.destroy', $software->id) }}">
                                                                     @csrf
@@ -97,7 +97,7 @@
                                                                     <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
                                                     </td>
                                                 </tr>
