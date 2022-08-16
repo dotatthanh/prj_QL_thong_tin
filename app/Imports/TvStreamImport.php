@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use DB;
 use App\Models\Device;
-use App\Models\TransmissionStream;
+use App\Models\TvStream;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -16,9 +16,9 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 
-class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithValidation, SkipsOnFailure
+class TvStreamImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
 {
-	use Importable, SkipsFailures;
+	use Importable, SkipsErrors, SkipsFailures;
     /**
     * @param Collection $collection
     */
@@ -30,13 +30,13 @@ class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithVali
             foreach ($collection as $row) {
 	            $device = Device::find($row['device_id']);
 	            if ($device) {
-	                $create = TransmissionStream::create([
+	                $create = TvStream::create([
 	                    'station_id' => $device->station->id,
 	                    'device_id' => $device->id,
 	                    'name_card' => $row['name_card'],
 	                    'port_origin' => $row['port_origin'],
-	                    'coordinates_origin' => $row['coordinates_origin'],
 	                    'signal_type' => $row['signal_type'],
+	                    'coordinates_origin' => $row['coordinates_origin'],
 	                    'thread_label' => $row['thread_label'],
 	                    'service' => $row['service'],
 	                    'station' => $row['station'],
@@ -44,6 +44,9 @@ class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithVali
 	                    'coordinates_remote' => $row['coordinates_remote'],
 	                    'port_remote' => $row['port_remote'],
 	                    'note' => $row['note'],
+	                    'port_station' => $row['port_station'],
+	                    'coordinates_station' => $row['coordinates_station'],
+	                    'device_station' => $row['device_station'],
 	                ]);
 	            }
             }

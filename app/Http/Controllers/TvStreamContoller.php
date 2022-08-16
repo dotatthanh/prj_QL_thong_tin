@@ -9,6 +9,8 @@ use App\Models\TvStream;
 use Illuminate\Http\Request;
 use DB;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\TvStreamImport;
 
 class TvStreamContoller extends Controller
 {
@@ -283,5 +285,16 @@ class TvStreamContoller extends Controller
         $pdf = PDF::loadView('tv-stream.pdf', $data)->setPaper('a2', 'landscape');
     
         return $pdf->download('luong_th_tdl.pdf');
+    }
+
+    public function importExcel(Request $request) {
+        $import = new TvStreamImport();
+        $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
+
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+        return back()->with('alert-success', 'Nhập danh sách luồng truyền hình - truyền số liệu thành công.');
     }
 }

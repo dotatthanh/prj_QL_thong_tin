@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use DB;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\TransmissionStreamImport1;
+use App\Imports\TransmissionStreamImport;
 
 class TransmissionStreamController extends Controller
 {
@@ -282,13 +282,13 @@ class TransmissionStreamController extends Controller
     }
 
     public function importExcel(Request $request) {
-        // $import = new TransmissionStreamImport1();
-        // $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
+        $import = new TransmissionStreamImport();
+        $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
 
-        // if ($import->failures()->isNotEmpty()) {
-        //     return back()->withFailures($import->failures());
-        // }
-        Excel::import(new TransmissionStreamImport1,request()->file('file'));
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
         return back()->with('alert-success', 'Nhập danh sách luồng truyền dẫn thành công.');
     }
 }

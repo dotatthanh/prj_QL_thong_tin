@@ -152,6 +152,29 @@
                                     </div>
 
                                     <div class="col-lg-10">
+                                        @if (session()->has('failures'))
+                                            <table class="table table-danger">
+                                                <tr>
+                                                    <th colspan="2" class="text-center font-weight-bold">Có một số lỗi xảy ra</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Hàng</td>
+                                                    <td class="font-weight-bold">Lỗi</td>
+                                                </tr>
+                                                @foreach(session()->get('failures') as $validation)
+                                                    <tr>
+                                                        <td>{{ $validation->row() }}</td>
+                                                        <td>
+                                                            <ul>
+                                                                @foreach($validation->errors() as $e)
+                                                                    <li>{{ $e }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                        @endif
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-centered table-nowrap">
                                                 <thead class="thead-light">
@@ -293,14 +316,22 @@
                                                 {{ $transmission_streams->links() }}
                                             </div>
                                         @endif
-                                        <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
 
-                                        <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
+                                            </div>
 
-                                            <input type="file" name="file">
-                                            <button type="submit">test</button>
-                                        </form>
+                                            <div class="col-lg-9 text-right">
+                                                <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
+                                                    @csrf
+
+                                                    <input type="file" name="file">
+                                                    <button type="submit" class="btn btn-success">Nhập excel</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 

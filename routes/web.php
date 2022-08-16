@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::resource('tv_streams', TvStreamContoller::class);
 	Route::get('/tv_stream/print', [TvStreamContoller::class, 'print'])->name('tv_streams.print');
+	Route::post('/tv_stream/import-excel', [TvStreamContoller::class, 'importExcel'])->name('tv_streams.import-excel');
 
 	Route::resource('stations', StationController::class);
 	Route::get('/station/system-tree', [StationController::class, 'systemTree'])->name('station.system-tree');
