@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('units', UnitController::class);
 	Route::resource('transmission_streams', TransmissionStreamController::class);
 	Route::get('/transmission_stream/print', [TransmissionStreamController::class, 'print'])->name('transmission_streams.print');
+	Route::post('/transmission_stream/import-excel', [TransmissionStreamController::class, 'importExcel'])->name('transmission_streams.import-excel');
 
 	Route::resource('tv_streams', TvStreamContoller::class);
 	Route::get('/tv_stream/print', [TvStreamContoller::class, 'print'])->name('tv_streams.print');

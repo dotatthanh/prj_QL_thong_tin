@@ -294,6 +294,13 @@
                                             </div>
                                         @endif
                                         <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
+
+                                        <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <input type="file" name="file">
+                                            <button type="submit">test</button>
+                                        </form>
                                     </div>
                                 </div>
 

@@ -36,39 +36,42 @@ class TvStreamContoller extends Controller
 
         if (auth()->user()->hasRole('Admin')) {
             $data = Unit::where('parent_id', null)->first();
-            $dataList = [
-                'id' => $data->id,
-                'parent_id' => $data->parent_id,
-                'name' => $data->name,
-                'childs' => [],
-            ];
-            $parents = Unit::where('parent_id', $dataList['id'])->get();
-            if(!empty($parents)){
-                foreach($parents as $keyParent => $parent){
-                    $stations = Station::where('unit_id', $parent->id)->get();
-                    array_push($dataList['childs'],[
-                        'id' => $parent->id,
-                        'parent_id' => $parent->parent_id,
-                        'name' => $parent->name,
-                        'count_child' => $parents->count() + $stations->count(),
-                        'childs' => [],
-                        'station_childs' => $stations->toArray(),
-                    ]);
-                    $parent_lv3 = Unit::where('parent_id', $parent['id'])->get();
-                    if(!empty($parent_lv3)){
-                        foreach($parent_lv3 as $lv3) {
-                            $count_child = \DB::table('units as unit')
-                            ->where('unit.parent_id', $lv3['id'])
-                            ->count();
+            $dataList = [];
+            if ($data) {
+                $dataList = [
+                    'id' => $data->id,
+                    'parent_id' => $data->parent_id,
+                    'name' => $data->name,
+                    'childs' => [],
+                ];
+                $parents = Unit::where('parent_id', $dataList['id'])->get();
+                if(!empty($parents)){
+                    foreach($parents as $keyParent => $parent){
+                        $stations = Station::where('unit_id', $parent->id)->get();
+                        array_push($dataList['childs'],[
+                            'id' => $parent->id,
+                            'parent_id' => $parent->parent_id,
+                            'name' => $parent->name,
+                            'count_child' => $parents->count() + $stations->count(),
+                            'childs' => [],
+                            'station_childs' => $stations->toArray(),
+                        ]);
+                        $parent_lv3 = Unit::where('parent_id', $parent['id'])->get();
+                        if(!empty($parent_lv3)){
+                            foreach($parent_lv3 as $lv3) {
+                                $count_child = \DB::table('units as unit')
+                                ->where('unit.parent_id', $lv3['id'])
+                                ->count();
 
-                            $count_station = Station::where('unit_id', $lv3['id'])->count();
+                                $count_station = Station::where('unit_id', $lv3['id'])->count();
 
-                            array_push($dataList['childs'][$keyParent]['childs'],[
-                                'id' => $lv3->id,
-                                'parent_id' => $lv3->parent_id,
-                                'name' => $lv3->name,
-                                'count_child' => $count_child + $count_station,
-                            ]);
+                                array_push($dataList['childs'][$keyParent]['childs'],[
+                                    'id' => $lv3->id,
+                                    'parent_id' => $lv3->parent_id,
+                                    'name' => $lv3->name,
+                                    'count_child' => $count_child + $count_station,
+                                ]);
+                            }
                         }
                     }
                 }
