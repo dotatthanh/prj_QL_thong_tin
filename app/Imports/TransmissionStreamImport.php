@@ -15,10 +15,11 @@ use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Validators\Failure;
 
-class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithValidation, SkipsOnFailure
+class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithValidation
 {
-	use Importable, SkipsFailures;
+	use Importable;
     /**
     * @param Collection $collection
     */

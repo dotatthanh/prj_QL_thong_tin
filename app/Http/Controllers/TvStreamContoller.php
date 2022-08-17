@@ -288,13 +288,18 @@ class TvStreamContoller extends Controller
     }
 
     public function importExcel(Request $request) {
-        $import = new TvStreamImport();
-        $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
+        try {
+            DB::beginTransaction();
+            $import = new TvStreamImport();
+            $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
 
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
+            DB::commit();
+            return back()->with('alert-success', 'Nhập danh sách luồng truyền hình - truyền số liệu thành công.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            DB::rollback();
+            $failures = collect($e->failures());
+            return back()->with('failures', $failures);
         }
 
-        return back()->with('alert-success', 'Nhập danh sách luồng truyền hình - truyền số liệu thành công.');
     }
 }

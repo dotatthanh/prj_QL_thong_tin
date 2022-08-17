@@ -16,9 +16,9 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 
-class TvStreamImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
+class TvStreamImport implements ToCollection, WithHeadingRow, WithValidation
 {
-	use Importable, SkipsErrors, SkipsFailures;
+	use Importable;
     /**
     * @param Collection $collection
     */
