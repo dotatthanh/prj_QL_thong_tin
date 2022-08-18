@@ -322,7 +322,7 @@
                                                 <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                             </div>
 
-                                            @can('Nhập excel luồng truyền dẫn')
+                                            {{-- @can('Nhập excel luồng truyền dẫn') --}}
                                             @if (isset($request->device_id))
                                                 <div class="col-lg-9 text-right">
                                                     <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
@@ -334,7 +334,7 @@
                                                     </form>
                                                 </div>
                                             @endif
-                                            @endcan
+                                            {{-- @endcan --}}
                                         </div>
 
                                     </div>
