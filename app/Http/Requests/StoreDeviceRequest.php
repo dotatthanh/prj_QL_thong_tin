@@ -27,7 +27,7 @@ class StoreDeviceRequest extends FormRequest
         return [
             'name' => [
                 'required', 'max:255',
-                Rule::unique('devices')->ignore($this->device),
+                // Rule::unique('devices')->ignore($this->device),
             ],
             'station_id' => 'required',
         ];
@@ -38,7 +38,7 @@ class StoreDeviceRequest extends FormRequest
         return [
             'name.required' => 'Tên thiết bị là trường bắt buộc.', 
             'name.max' => 'Tên thiết bị không được dài quá :max ký tự.', 
-            'name.unique' => 'Thiết bị đã tồn tại.', 
+            // 'name.unique' => 'Thiết bị đã tồn tại.', 
             'station_id.required' => 'Trạm là trường bắt buộc.',
         ];
     }
