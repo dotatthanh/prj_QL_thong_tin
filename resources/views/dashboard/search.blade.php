@@ -53,6 +53,7 @@
                         </table>
                     </div>
 
+                    @if (count($transmission_streams) > 0)
                     <div class="table-responsive mt-5">
                         <table class="table table-bordered table-centered table-nowrap">
                             <thead class="thead-light">
@@ -102,7 +103,9 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
 
+                    @if (count($tv_streams) > 0)
                     <div class="table-responsive mt-5">
                         <table class="table table-bordered table-centered table-nowrap">
                             <thead class="thead-light">
@@ -159,6 +162,7 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
