@@ -23,17 +23,23 @@ class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithVali
     /**
     * @param Collection $collection
     */
+
+    public function  __construct($device_id)
+    {
+        $this->device_id = $device_id;
+    }
+
     public function collection(Collection $collection)
     {
         try {
             DB::beginTransaction();
 
             foreach ($collection as $row) {
-	            $device = Device::find($row['device_id']);
+	            $device = Device::find($this->device_id);
 	            if ($device) {
 	                $create = TransmissionStream::create([
 	                    'station_id' => $device->station->id,
-	                    'device_id' => $device->id,
+	                    'device_id' => $this->device_id,
 	                    'name_card' => $row['name_card'],
 	                    'port_origin' => $row['port_origin'],
 	                    'coordinates_origin' => $row['coordinates_origin'],
@@ -58,7 +64,6 @@ class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithVali
     public function rules(): array
     {
         return [
-        	'*.device_id' => 'required',
         	'*.name_card' => 'required',
         	'*.port_origin' => 'required|numeric',
         	'*.coordinates_origin' => 'required',
@@ -69,7 +74,6 @@ class TransmissionStreamImport implements ToCollection, WithHeadingRow, WithVali
     public function customValidationMessages()
     {
         return [
-            'device_id.required' => 'ID thiết bị là trường bắt buộc.',
             'name_card.required' => 'Tên card là trường bắt buộc.',
             'coordinates_origin.required' => 'Toạ độ là trường bắt buộc.',
             'port_origin.required' => 'Port là trường bắt buộc.',

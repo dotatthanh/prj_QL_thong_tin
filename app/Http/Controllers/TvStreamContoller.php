@@ -290,7 +290,7 @@ class TvStreamContoller extends Controller
     public function importExcel(Request $request) {
         try {
             DB::beginTransaction();
-            $import = new TvStreamImport();
+            $import = new TvStreamImport($request->device_id);
             $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
 
             DB::commit();

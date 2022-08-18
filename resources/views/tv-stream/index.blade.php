@@ -36,7 +36,7 @@
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm luồng" value="{{ $request->search }}">
+                                                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm nhãn luồng" value="{{ $request->search }}">
                                                     <input type="text" name="device_id" hidden value="{{ $request->device_id }}">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
@@ -46,7 +46,7 @@
                                             </button>
                                         </div>
                                         
-                                        @can('Thêm luồng truyền dẫn')
+                                        @can('Thêm luồng TH-TSL')
                                         @if (isset($request->device_id))
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
@@ -76,28 +76,28 @@
                                                     @endif
 
                                                     <div class="form-group row">
-                                                        <label for="name_card" class="col-sm-2 col-form-label">Tên card :</label>
+                                                        <label for="name_card" class="col-sm-2 col-form-label">Tên card : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="name_card" placeholder="Nhập tên card" name="name_card">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="port" class="col-sm-2 col-form-label">Port :</label>
+                                                        <label for="port" class="col-sm-2 col-form-label">Port : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="number" min="1" class="form-control" id="port" placeholder="Nhập port" name="port_origin">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="signal_type" class="col-sm-2 col-form-label">Loại tín hiệu :</label>
+                                                        <label for="signal_type" class="col-sm-2 col-form-label">Loại tín hiệu : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="signal_type" placeholder="Nhập loại tín hiệu" name="signal_type">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="coordinates" class="col-sm-2 col-form-label">Toạ độ :</label>
+                                                        <label for="coordinates" class="col-sm-2 col-form-label">Toạ độ : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="coordinates" placeholder="Nhập toạ độ" name="coordinates_origin">
                                                         </div>
@@ -106,7 +106,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="text-white btn btn-success waves-effect waves-light mb-2 mr-2">Thêm</button>
-                                                    {{-- <a href="{{ route('tv_streams.create') }}" class="text-white btn btn-success waves-effect waves-light mb-2 mr-2">Thêm</a> --}}
                                                 </div>
                                             </form>
                                         </div>
@@ -206,37 +205,47 @@
                                                 </thead>
                                                 <tbody>
                                                     @php ($stt = 1)
-                                                    @foreach ($tv_streams as $transmission_stream)
+                                                    @foreach ($tv_streams as $item)
                                                         <tr>
                                                             <td class="text-center">{{ $stt++ }}</td>
                                                             <td>
-                                                                {{ $transmission_stream->Device->name }}
+                                                                {{ $item->Device->name }}
                                                             </td>
-                                                            <td>{{ $transmission_stream->name_card }}</td>
-                                                            <td>{{ $transmission_stream->coordinates_origin }}</td>
-                                                            <td>{{ $transmission_stream->port_origin }}</td>
-                                                            <td>{{ $transmission_stream->thread_label }}</td>
-                                                            <td>{{ $transmission_stream->service }}</td>
-                                                            <td>{{ $transmission_stream->signal_type }}</td>
-                                                            <td>{{ $transmission_stream->device_station }}</td>
-                                                            <td>{{ $transmission_stream->coordinates_station }}</td>
-                                                            <td>{{ $transmission_stream->port_station }}</td>
-                                                            <td>{{ $transmission_stream->station }}</td>
-                                                            <td>{{ $transmission_stream->device }}</td>
-                                                            <td>{{ $transmission_stream->coordinates_remote }}</td>
-                                                            <td>{{ $transmission_stream->port_remote }}</td>
-                                                            <td>{{ $transmission_stream->note }}</td>
-                                                            <td>{{ date('d/m/Y', strtotime($transmission_stream->updated_at)) }}</td>
+                                                            <td>{{ $item->name_card }}</td>
+                                                            <td>{{ $item->coordinates_origin }}</td>
+                                                            <td>{{ $item->port_origin }}</td>
+                                                            <td>{{ $item->thread_label }}</td>
+                                                            <td>{{ $item->service }}</td>
+                                                            <td>{{ $item->signal_type }}</td>
+                                                            <td>{{ $item->device_station }}</td>
+                                                            <td>{{ $item->coordinates_station }}</td>
+                                                            <td>{{ $item->port_station }}</td>
+                                                            <td>{{ $item->station }}</td>
+                                                            <td>{{ $item->device }}</td>
+                                                            <td>{{ $item->coordinates_remote }}</td>
+                                                            <td>{{ $item->port_remote }}</td>
+                                                            <td>{{ $item->note }}</td>
+                                                            <td>{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
                                                             <td class="text-center">
                                                                 <ul class="list-inline font-size-20 contact-links mb-0">
-                                                                    @can('Chỉnh sửa luồng truyền dẫn')
+                                                                    @can('Chỉnh sửa luồng TH-TSL')
                                                                     <li class="list-inline-item px">
-                                                                        <button type="button" class="border-0 bg-white" data-toggle="modal" data-target="#modal-edit{{ $transmission_stream->id }}"><i class="mdi mdi-pencil text-success"></i></button>
+                                                                        <button type="button" class="border-0 bg-white" data-toggle="modal" data-target="#modal-edit{{ $item->id }}"><i class="mdi mdi-pencil text-success"></i></button>
+                                                                    </li>
+                                                                    @endcan
+                                                                    @can('Xóa luồng TH-TSL')
+                                                                    <li class="list-inline-item px">
+                                                                        <form method="post" action="{{ route('tv_streams.destroy', $item->id) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            
+                                                                            <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                        </form>
                                                                     </li>
                                                                     @endcan
                                                                 </ul>
 
-<div class="modal fade" id="modal-edit{{ $transmission_stream->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-edit{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -246,7 +255,7 @@
                 </button>
             </div>
 
-            <form method="POST" action="{{ route('tv_streams.update', $transmission_stream->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('tv_streams.update', $item->id) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="modal-body">
@@ -279,22 +288,22 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        {{ $transmission_stream->Device->name }}
+                                        {{ $item->Device->name }}
                                     </td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập tên card" name="name_card" value="{{ $transmission_stream->name_card }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_origin" value="{{ $transmission_stream->coordinates_origin }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="port_origin" value="{{ $transmission_stream->port_origin }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $transmission_stream->service }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $transmission_stream->signal_type }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device_station" value="{{ $transmission_stream->device_station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_station" value="{{ $transmission_stream->coordinates_station }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_station" value="{{ $transmission_stream->port_station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="station" value="{{ $transmission_stream->station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="device" value="{{ $transmission_stream->device }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="note" value="{{ $transmission_stream->note }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập tên card" name="name_card" value="{{ $item->name_card }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_origin" value="{{ $item->coordinates_origin }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="port_origin" value="{{ $item->port_origin }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $item->thread_label }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $item->service }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $item->signal_type }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device_station" value="{{ $item->device_station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_station" value="{{ $item->coordinates_station }}"></td>
+                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_station" value="{{ $item->port_station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="station" value="{{ $item->station }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="device" value="{{ $item->device }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="coordinates_remote" value="{{ $item->coordinates_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $item->port_remote }}"></td>
+                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="note" value="{{ $item->note }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -326,14 +335,19 @@
                                                 <a href="{{ route('tv_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                             </div>
 
-                                            <div class="col-lg-9 text-right">
-                                                <form action="{{ route('tv_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
-                                                    @csrf
+                                            @can('Nhập excel luồng TH-TSL')
+                                            @if (isset($request->device_id))
+                                                <div class="col-lg-9 text-right">
+                                                    <form action="{{ route('tv_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
+                                                        @csrf
 
-                                                    <input type="file" name="file">
-                                                    <button type="submit" class="btn btn-success">Nhập excel</button>
-                                                </form>
-                                            </div>
+                                                        <input type="text" name="device_id" hidden value="{{ $request->device_id }}">
+                                                        <input type="file" name="file" required>
+                                                        <button type="submit" class="btn btn-success">Nhập excel</button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
@@ -387,7 +401,7 @@
 
                             $.each(data.data_station, function( index, value ) {
                                 html += `<li id="li-station-`+ value.id +`" class="close-el">
-                                    <span> <i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="${value.id}" onclick="extendDevice(${value.id})" id="i-${value.id}"></i> Trạm: ` + value.name + ` </span>
+                                    <span> <i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="${value.id}" onclick="extendDevice(${value.id})" id="i-${value.id}"></i> ` + value.name + ` </span>
                                     </li>`;
                             });
 
@@ -454,7 +468,7 @@
             color: #4c4848 !important;
         }
         ul {
-            padding-left: 20px;
+            padding-left: 0px;
         }
         .parent {
             display: block;
@@ -462,10 +476,8 @@
             padding-left: 10px;
             color: #4c4848;
             text-decoration: none;
-            /*width: 250px;*/
             font-size: 14px;
         }
-
         .wtree li {
             list-style-type: none;
             margin: 10px 0 10px 10px;
@@ -475,24 +487,24 @@
             content: "";
             position: absolute;
             top: -10px;
-            left: -20px;
+            left: 0px;
             border-left: 1px solid #4c4848;
             border-bottom: 1px solid #4c4848;
-            width: 20px;
+            width: 7px;
             height: 15px;
         }
         .wtree li:after {
             position: absolute;
             content: "";
             top: 5px;
-            left: -20px;
+            left: 0px;
             border-left: 1px solid #4c4848;
             border-top: 1px solid #4c4848;
-            width: 20px;
+            width: 7px;
             height: 100%;
         }
         .wtree li:last-child:after {
-        display: none;
+            display: none;
         }
         .wtree li span, .wtree li a {
             display: block;
@@ -503,6 +515,14 @@
         }
         .wtree li span:hover + ul li:after, .wtree li span:hover + ul li:before, .wtree li span:focus + ul li:after, .wtree li span:focus + ul li:before {
             border-color: #4c4848;
+        }
+        .col-lg-2 {
+            flex: 0 0 13.66667%!important;
+            max-width: 13.66667%!important;
+        }
+        .col-lg-10 {
+            flex: 0 0 86.33333%!important;
+            max-width: 86.33333%!important;
         }
     </style>
 @endpush

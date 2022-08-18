@@ -29,12 +29,37 @@ class TransmissionStreamController extends Controller
 
             if (isset($request->device_id)) {
                 $transmission_streams = $transmission_streams->where('device_id', $request->device_id);
+                // $device = Device::find($request->device_id);
+                // $station = Station::find($device->station_id);
+                // // $unit_parent = Unit::find($station->unit_id);
+                // $parentArr = Unit::whereIn('id', [$station->unit_id])->pluck('parent_id')->toArray();
+                // $parentId = $parentArr;
+                // $data = $parentArr;
+
+                // while (count($parentId) > 0){
+                //     $childs = Unit::selectRaw("units.*")
+                //         ->whereIn('units.parent_id', $parentId)
+                //         ->get();
+           
+                //     $parentId = [];
+                //     if(!empty($childs)) {
+                //         foreach($childs as $child){
+                //             array_push($parentId, $child->id);
+                //             array_push($data, $child->id);
+                //         }
+                //     }
+                // } 
+
+                // $units = Unit::whereIn('id', $data)->pluck('id')->toArray();
+
+                // dd($units);
             }
             $transmission_streams = $transmission_streams->paginate(50)->appends([
                 'search' => $request->search,
                 'device_id' => $request->device_id,
             ]);
         }
+        // dd($station->unit_id);
 
         if (auth()->user()->hasRole('Admin')) {
             $data = Unit::where('parent_id', null)->first();
@@ -281,10 +306,11 @@ class TransmissionStreamController extends Controller
         return $pdf->download('luong_truyen_dan.pdf');
     }
 
-    public function importExcel(Request $request) {
+    public function importExcel(Request $request) 
+    {
         try {
             DB::beginTransaction();
-            $import = new TransmissionStreamImport();
+            $import = new TransmissionStreamImport($request->device_id);
             $import->import($request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
 
             DB::commit();

@@ -36,7 +36,7 @@
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm luồng" value="{{ $request->search }}">
+                                                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm nhãn luồng" value="{{ $request->search }}">
                                                     <input type="text" name="device_id" hidden value="{{ $request->device_id }}">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
@@ -76,28 +76,28 @@
                                                     @endif
 
                                                     <div class="form-group row">
-                                                        <label for="name_card" class="col-sm-2 col-form-label">Tên card :</label>
+                                                        <label for="name_card" class="col-sm-2 col-form-label">Tên card : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="name_card" placeholder="Nhập tên card" name="name_card">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="port" class="col-sm-2 col-form-label">Port :</label>
+                                                        <label for="port" class="col-sm-2 col-form-label">Port : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="number" min="1" class="form-control" id="port" placeholder="Nhập port" name="port_origin">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="signal_type" class="col-sm-2 col-form-label">Loại tín hiệu :</label>
+                                                        <label for="signal_type" class="col-sm-2 col-form-label">Loại tín hiệu : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="signal_type" placeholder="Nhập loại tín hiệu" name="signal_type">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="coordinates" class="col-sm-2 col-form-label">Toạ độ :</label>
+                                                        <label for="coordinates" class="col-sm-2 col-form-label">Toạ độ : <span class="text-danger">*</span></label>
                                                         <div class="col-sm-10">
                                                             <input required type="text" class="form-control" id="coordinates" placeholder="Nhập toạ độ" name="coordinates_origin">
                                                         </div>
@@ -227,7 +227,7 @@
                                                                         <button type="button" class="border-0 bg-white" data-toggle="modal" data-target="#modal-edit{{ $transmission_stream->id }}"><i class="mdi mdi-pencil text-success"></i></button>
                                                                     </li>
                                                                     @endcan
-                                                                    {{-- @can('Xóa luồng truyền dẫn') --}}
+                                                                    @can('Xóa luồng truyền dẫn')
                                                                     <li class="list-inline-item px">
                                                                         <form method="post" action="{{ route('transmission_streams.destroy', $transmission_stream->id) }}">
                                                                             @csrf
@@ -236,7 +236,7 @@
                                                                             <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                         </form>
                                                                     </li>
-                                                                    {{-- @endcan --}}
+                                                                    @endcan
                                                                 </ul>
 
 <div class="modal fade" id="modal-edit{{ $transmission_stream->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -322,14 +322,19 @@
                                                 <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                             </div>
 
-                                            <div class="col-lg-9 text-right">
-                                                <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
-                                                    @csrf
+                                            @can('Nhập excel luồng truyền dẫn')
+                                            @if (isset($request->device_id))
+                                                <div class="col-lg-9 text-right">
+                                                    <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
+                                                        @csrf
 
-                                                    <input type="file" name="file">
-                                                    <button type="submit" class="btn btn-success">Nhập excel</button>
-                                                </form>
-                                            </div>
+                                                        <input type="text" name="device_id" hidden value="{{ $request->device_id }}">
+                                                        <input type="file" name="file" required>
+                                                        <button type="submit" class="btn btn-success">Nhập excel</button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                            @endcan
                                         </div>
 
                                     </div>
@@ -384,7 +389,7 @@
 
                             $.each(data.data_station, function( index, value ) {
                                 html += `<li id="li-station-`+ value.id +`" class="close-el">
-                                    <span> <i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="${value.id}" onclick="extendDevice(${value.id})" id="i-${value.id}"></i> Trạm: ` + value.name + ` </span>
+                                    <span> <i class="fa fa-plus-circle extend-level" aria-hidden="true" data-id="${value.id}" onclick="extendDevice(${value.id})" id="i-${value.id}"></i> ` + value.name + ` </span>
                                     </li>`;
                             });
 
@@ -451,7 +456,7 @@
             color: #4c4848 !important;
         }
         ul {
-            padding-left: 20px;
+            padding-left: 0px;
         }
         .parent {
             display: block;
@@ -459,10 +464,8 @@
             padding-left: 10px;
             color: #4c4848;
             text-decoration: none;
-            /*width: 250px;*/
             font-size: 14px;
         }
-
         .wtree li {
             list-style-type: none;
             margin: 10px 0 10px 10px;
@@ -472,24 +475,24 @@
             content: "";
             position: absolute;
             top: -10px;
-            left: -20px;
+            left: 0px;
             border-left: 1px solid #4c4848;
             border-bottom: 1px solid #4c4848;
-            width: 20px;
+            width: 7px;
             height: 15px;
         }
         .wtree li:after {
             position: absolute;
             content: "";
             top: 5px;
-            left: -20px;
+            left: 0px;
             border-left: 1px solid #4c4848;
             border-top: 1px solid #4c4848;
-            width: 20px;
+            width: 7px;
             height: 100%;
         }
         .wtree li:last-child:after {
-        display: none;
+            display: none;
         }
         .wtree li span, .wtree li a {
             display: block;
@@ -500,6 +503,14 @@
         }
         .wtree li span:hover + ul li:after, .wtree li span:hover + ul li:before, .wtree li span:focus + ul li:after, .wtree li span:focus + ul li:before {
             border-color: #4c4848;
+        }
+        .col-lg-2 {
+            flex: 0 0 13.66667%!important;
+            max-width: 13.66667%!important;
+        }
+        .col-lg-10 {
+            flex: 0 0 86.33333%!important;
+            max-width: 86.33333%!important;
         }
     </style>
 @endpush

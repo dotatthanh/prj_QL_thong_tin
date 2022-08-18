@@ -104,21 +104,25 @@ class RoleAndPermissionSeeder extends Seeder
         $view_transmission_stream = Permission::create(['name' => 'Xem danh sách luồng truyền dẫn']);
         $create_transmission_stream = Permission::create(['name' => 'Thêm luồng truyền dẫn']);
         $edit_transmission_stream = Permission::create(['name' => 'Chỉnh sửa luồng truyền dẫn']);
-        // $delete_transmission_stream = Permission::create(['name' => 'Xóa luồng truyền dẫn']);
+        $delete_transmission_stream = Permission::create(['name' => 'Xóa luồng truyền dẫn']);
+        $import_excel_transmission_stream = Permission::create(['name' => 'Nhập excel luồng truyền dẫn']);
 
         $admin->givePermissionTo($view_transmission_stream);
         $admin->givePermissionTo($create_transmission_stream);
         $admin->givePermissionTo($edit_transmission_stream);
-        // $admin->givePermissionTo($delete_transmission_stream);
+        $admin->givePermissionTo($delete_transmission_stream);
+        $admin->givePermissionTo($import_excel_transmission_stream);
 
         $view_tv_stream = Permission::create(['name' => 'Xem danh sách luồng TH-TSL']);
         $create_tv_stream = Permission::create(['name' => 'Thêm luồng TH-TSL']);
         $edit_tv_stream = Permission::create(['name' => 'Chỉnh sửa luồng TH-TSL']);
-        // $delete_tv_stream = Permission::create(['name' => 'Xóa luồng TH-TSL']);
+        $delete_tv_stream = Permission::create(['name' => 'Xóa luồng TH-TSL']);
+        $import_excel_tv_stream = Permission::create(['name' => 'Nhập excel luồng TH-TSL']);
 
         $admin->givePermissionTo($view_tv_stream);
         $admin->givePermissionTo($create_tv_stream);
         $admin->givePermissionTo($edit_tv_stream);
-        // $admin->givePermissionTo($delete_tv_stream);
+        $admin->givePermissionTo($delete_tv_stream);
+        $admin->givePermissionTo($import_excel_tv_stream);
     }
 }
