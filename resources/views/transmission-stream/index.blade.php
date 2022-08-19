@@ -283,14 +283,14 @@
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập tên card" name="name_card" value="{{ $transmission_stream->name_card }}"></td>
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_origin" value="{{ $transmission_stream->coordinates_origin }}"></td>
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="port_origin" value="{{ $transmission_stream->port_origin }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $transmission_stream->service }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $transmission_stream->signal_type }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập trạm" name="station" value="{{ $transmission_stream->station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device" value="{{ $transmission_stream->device }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập ghi chú" name="note" value="{{ $transmission_stream->note }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $transmission_stream->thread_label }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $transmission_stream->service }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $transmission_stream->signal_type }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập trạm" name="station" value="{{ $transmission_stream->station }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập thiết bị" name="device" value="{{ $transmission_stream->device }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_remote" value="{{ $transmission_stream->coordinates_remote }}"></td>
+                                    <td><input style="width: 135px;" type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $transmission_stream->port_remote }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập ghi chú" name="note" value="{{ $transmission_stream->note }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -322,7 +322,7 @@
                                                 <a href="{{ route('transmission_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                             </div>
 
-                                            {{-- @can('Nhập excel luồng truyền dẫn') --}}
+                                            @can('Nhập excel luồng truyền dẫn')
                                             @if (isset($request->device_id))
                                                 <div class="col-lg-9 text-right">
                                                     <form action="{{ route('transmission_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
@@ -334,7 +334,7 @@
                                                     </form>
                                                 </div>
                                             @endif
-                                            {{-- @endcan --}}
+                                            @endcan
                                         </div>
 
                                     </div>

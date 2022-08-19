@@ -54,7 +54,7 @@ class TransmissionStreamController extends Controller
 
                 // dd($units);
             }
-            $transmission_streams = $transmission_streams->paginate(50)->appends([
+            $transmission_streams = $transmission_streams->orderBy('coordinates_origin')->orderBy('port_origin')->paginate(50)->appends([
                 'search' => $request->search,
                 'device_id' => $request->device_id,
             ]);

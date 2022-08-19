@@ -30,7 +30,7 @@ class TvStreamContoller extends Controller
             if (isset($request->device_id)) {
                 $tv_streams = $tv_streams->where('device_id', $request->device_id);
             }
-            $tv_streams = $tv_streams->paginate(50)->appends([
+            $tv_streams = $tv_streams->orderBy('coordinates_origin')->orderBy('port_origin')->paginate(50)->appends([
                 'search' => $request->search,
                 'device_id' => $request->device_id,
             ]);

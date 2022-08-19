@@ -293,17 +293,17 @@
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập tên card" name="name_card" value="{{ $item->name_card }}"></td>
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_origin" value="{{ $item->coordinates_origin }}"></td>
                                     <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="port_origin" value="{{ $item->port_origin }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $item->thread_label }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $item->service }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $item->signal_type }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập thiết bị" name="device_station" value="{{ $item->device_station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_station" value="{{ $item->coordinates_station }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_station" value="{{ $item->port_station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="station" value="{{ $item->station }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="device" value="{{ $item->device }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="coordinates_remote" value="{{ $item->coordinates_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $item->port_remote }}"></td>
-                                    <td><input style="width: 135px;" required type="text" class="form-control" placeholder="Nhập port" name="note" value="{{ $item->note }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập nhãn luồng" name="thread_label" value="{{ $item->thread_label }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập dịch vụ" name="service" value="{{ $item->service }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập loại tín hiệu" name="signal_type" value="{{ $item->signal_type }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập thiết bị" name="device_station" value="{{ $item->device_station }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập toạ độ" name="coordinates_station" value="{{ $item->coordinates_station }}"></td>
+                                    <td><input style="width: 135px;" type="number" min="1" class="form-control" placeholder="Nhập port" name="port_station" value="{{ $item->port_station }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập port" name="station" value="{{ $item->station }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập port" name="device" value="{{ $item->device }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập port" name="coordinates_remote" value="{{ $item->coordinates_remote }}"></td>
+                                    <td><input style="width: 135px;" type="number" min="1" class="form-control" placeholder="Nhập port" name="port_remote" value="{{ $item->port_remote }}"></td>
+                                    <td><input style="width: 135px;" type="text" class="form-control" placeholder="Nhập port" name="note" value="{{ $item->note }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -335,7 +335,7 @@
                                                 <a href="{{ route('tv_streams.print', $request->all()) }}" class="d-inline-block text-white btn btn-success btn-rounded waves-effect waves-light mt-2 mb-2"><i class="bx bx-printer mr-1"></i> In file quản lý</a>
                                             </div>
 
-                                            {{-- @can('Nhập excel luồng TH-TSL') --}}
+                                            @can('Nhập excel luồng TH-TSL')
                                             @if (isset($request->device_id))
                                                 <div class="col-lg-9 text-right">
                                                     <form action="{{ route('tv_streams.import-excel') }}" method="POST" enctype="multipart/form-data" class="mt-2">
@@ -347,7 +347,7 @@
                                                     </form>
                                                 </div>
                                             @endif
-                                            {{-- @endcan --}}
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
