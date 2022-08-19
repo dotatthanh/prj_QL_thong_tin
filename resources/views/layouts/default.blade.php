@@ -31,7 +31,7 @@
           }
         </style>
     </head>
-    <body data-topbar="dark" data-layout="horizontal">
+    <body data-topbar="dark">
         <!-- Begin page -->
         <div id="layout-wrapper">
 
