@@ -190,6 +190,8 @@ class DeviceController extends Controller
             DB::beginTransaction();
 
             $device->destroy($device->id);
+            $device->tranmissionStream()->delete();
+            $device->tvStream()->delete();
             
             DB::commit();
             return redirect()->back()->with('alert-success','Xóa thiết bị thành công!');

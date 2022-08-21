@@ -15,12 +15,12 @@
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h4 class="mb-0 font-size-18">Danh sách luồng truyền dẫn</h4>
 
-                            <div class="page-title-right">
+                            {{-- <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
                                     <li class="breadcrumb-item active">Danh sách luồng truyền dẫn</li>
                                 </ol>
-                            </div>
+                            </div> --}}
                         </div>
 
                     </div>
