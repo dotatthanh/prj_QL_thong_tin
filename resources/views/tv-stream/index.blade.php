@@ -179,12 +179,12 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th rowspan="2" class="text-center">STT</th>
-                                                        <th colspan="4" class="text-center">Toạ độ truyền dẫn tại trạm</th>
+                                                        <th colspan="4" class="text-center">Toạ độ TH-TSL tại trạm</th>
                                                         <th rowspan="2">Nhãn luồng</th>
                                                         <th rowspan="2">Dịch vụ</th>
                                                         <th rowspan="2">Loại tín hiệu</th>
                                                         <th colspan="3" class="text-center">Truyền dẫn tại trạm</th>
-                                                        <th colspan="4" class="text-center">Toạ độ truyền dẫn đầu xa</th>
+                                                        <th colspan="4" class="text-center">Toạ độ TH-TSL đầu xa</th>
                                                         <th rowspan="2">Ghi chú</th>
                                                         <th rowspan="2">Ngày cập nhật</th>
                                                         <th rowspan="2">Thao tác</th>
