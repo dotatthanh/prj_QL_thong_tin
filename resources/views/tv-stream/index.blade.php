@@ -439,7 +439,7 @@
                         if (data.count > 0) {
                             $.each(data.devices, function( index, value ) {
                                 html += `<li id="li-station-${value.id}" class="close-el">
-                                    <a href="/tv_streams?device_id=${value.id}"> ${value.name}</a>
+                                    <a href="{{ url('/') }}/tv_streams?device_id=${value.id}"> ${value.name}</a>
                                 </li>`;
                             });
                         }
