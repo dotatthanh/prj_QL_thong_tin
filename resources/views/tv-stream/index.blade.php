@@ -378,7 +378,7 @@
             });
             if (li.hasClass("close-el")) {
                 $.ajax({
-                    url: "/station/get-unit-child-list",
+                    url: "{{ url('/') }}/station/get-unit-child-list",
                     type: "POST",
                     data: {
                         id: parentId
@@ -426,7 +426,7 @@
             });
             if (li.hasClass("close-el")) {
                 $.ajax({
-                    url: "/device/get-device-television-by-station",
+                    url: "{{ url('/') }}/device/get-device-television-by-station",
                     type: "POST",
                     data: {
                         id: stationId
